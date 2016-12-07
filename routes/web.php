@@ -11,17 +11,20 @@
 |
 */
 
+
+// Auth
+Route::get('/logout', 'Auth\LoginController@logout');
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', function () {
-    return view('login');
+Route::get('/poli/rekap/detail', function () {
+    return view('poli.detail-pemeriksaan');
 });
 
 Route::get('/poli', 'PoliController@index');
-Route::get('/poli/rekap', 'PoliController@rekapPemeriksaan');
-Route::get('/poli/rekap/detail/{id}', 'PoliController@detailPemeriksaan');
 Route::get('/poli/tambah/{id}', 'PoliController@tambahPemeriksaan');
 
 Route::get('/poli/tambah-pemeriksaan', function () {
@@ -30,5 +33,14 @@ Route::get('/poli/tambah-pemeriksaan', function () {
 
 Route::post('/poli/tambah/add', 'PoliController@buatPemeriksaan');
 
-// Tambah Diagnosa
+// Tambah data pemeriksaan
 Route::post('/poli/tambah/diagnosa', 'PoliController@tambahDiagnosa');
+Route::post('/poli/tambah/rujukan', 'PoliController@tambahRujukan');
+Route::post('/poli/tambah/obat', 'PoliController@tambahObat');
+Route::post('/poli/tambah/catatanResep', 'PoliController@tambahCatatanResep');
+Route::get('/poli/hapus/obat/{resep}/{obat}', 'PoliController@hapusObat');
+
+// Rekap pemeriksaan
+Route::get('/poli/rekap', 'PoliController@rekapPemeriksaan');
+Route::get('/poli/rekap/detail/{id}', 'PoliController@detailPemeriksaan');
+

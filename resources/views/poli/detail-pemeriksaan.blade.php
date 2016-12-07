@@ -131,7 +131,7 @@
                                                             <table class="table tbl-detail">
                                                                 <tr>
                                                                     <td width="150px;">Nama Pasien</td>
-                                                                    <td>: {{ $detailDiagnosa->pasien->NamaPasien }}</td>
+                                                                    <td>: nama</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Tanggal Periksa</td>
@@ -139,19 +139,19 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Riwayat Penyakit</td>
-                                                                    <td>: {{ $detailDiagnosa->RiwayatPenyakit }}</td>
+                                                                    <td>: riwayat</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Keadaan Umum</td>
-                                                                    <td>: {{ $detailDiagnosa->KeadaanUmum }}</td>
+                                                                    <td>: keadaan</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Keadaan Fisik</td>
-                                                                    <td>: {{ $detailDiagnosa->KeadaanFisik }}</td>
+                                                                    <td>: fisik</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Diagnosa</td>
-                                                                    <td>: {{ $detailDiagnosa->Diagnosa }}</td>
+                                                                    <td>: dd</td>
                                                                 </tr>
                                                             </table>
                                                         </div>
@@ -163,19 +163,19 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td width="120px;">Tinggi Badan</td>
-                                                                    <td>: {{ $detailDiagnosa->TinggiBadan }} cm</td>
+                                                                    <td>: tgg cm</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Berat Badan</td>
-                                                                    <td>: {{ $detailDiagnosa->BeratBadan }} kg</td>
+                                                                    <td>:  kg</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Tensi</td>
-                                                                    <td>: {{ $detailDiagnosa->Tensi }}</td>
+                                                                    <td>: </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Suhu Tubuh</td>
-                                                                    <td>: {{ $detailDiagnosa->Suhu }} &#176;C</td>
+                                                                    <td>:  &#176;C</td>
                                                                 </tr>
                                                             </table>
                                                         </div>
@@ -190,11 +190,11 @@
                                                             <table class="table tbl-detail">
                                                                 <tr>
                                                                     <td width="150px;">Perujuk</td>
-                                                                    <td>: {{ $detailRujukan->Perujuk }}</td>
+                                                                    <td>: </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Tujuan</td>
-                                                                    <td>: {{ $detailRujukan->Tujuan }}</td>
+                                                                    <td>: </td>
                                                                 </tr>
                                                                 
                                                             </table>

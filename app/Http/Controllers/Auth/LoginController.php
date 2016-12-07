@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -35,5 +37,28 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    public function showLoginForm(){
+        return view('login');
+    }
+
+    public function login(Request $request){
+        $credential = [
+            'username' => $request->username,
+            'password' => $request->password
+        ];
+
+         if (Auth::attempt($credential)) {
+            // dd(Auth::check());
+            if (Auth::user()->Jabatan == "poliumum") {
+                return redirect()->intended('/poli');
+            }
+        }
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect('/login');
     }
 }

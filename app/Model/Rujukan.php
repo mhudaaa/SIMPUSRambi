@@ -6,19 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rujukan extends Model{
     protected $table = 'tb_rujukan';
-    protected $primaryKey = 'idRujukan';
+    protected $primaryKey = 'IdRujukan';
 
- 	// protected $fillable = [
-	// 	'NamaPasien', 'Alamat', 'NoKtp', 'JenisKelamin'
-	// ];
-
-	protected $hidden = [
-		'idKunjungan'
+ 	protected $fillable = [
+		'Tujuan', 'TanggalRujukan', 'Catatan'
 	];
 
 	// Join
-	public function pemeriksaan(){
-		return $this->belongsTo(Pemeriksaan::class, 'IdPemeriksaan');
+	public function kunjungan(){
+		return $this->belongsTo(Kunjungan::class, 'IdKunjungan');
 	}
 
 

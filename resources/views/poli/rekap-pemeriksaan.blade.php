@@ -93,7 +93,7 @@
                                 <div class="header">
                                     <div class="row">
                                         <div class="col-sm-5">
-                                            <h4 class="title space-top text-success">Rekap Data Kunjungan</h4>  
+                                            <h4 class="title space-top text-success">Rekap Data Pemeriksaan</h4>  
                                         </div>
                                         <form method="post" action="">
                                             <div class="col-sm-2">
@@ -123,28 +123,32 @@
                                         <div class="col-sm-12">
                                             <div class="konten">
                                                 <!-- <h6 class="title text-danger">Kamis, 17 November 2016</h6> -->
-                                                 <table class="table rekap">
+
+                                                 <table class="table table-striped rekap">
                                                     <thead>
                                                         <th>No</th>
                                                         <th>Tanggal</th>
                                                         <th width="150px;">Nama</th>
                                                         <th>Diagnosa</th>
+                                                        <th width="100px">Dokter</th>
                                                         <th width="80px">Aksi</th>
                                                     </thead>
                                                     <tbody>
                                                     
-                                                        @foreach($pemeriksaans as $no=>$pemeriksaan)
+                                                        @foreach($pemeriksaans as $no=>$pemeriksaan)        
                                                         <tr>
                                                             <td width="40px">{{ ++$no }}</td>
-                                                            <td width="120px">{{ date('d-m-Y', strtotime($pemeriksaan->diagnosa->created_at)) }}</td>
-                                                            <td>{{ $pemeriksaan->diagnosa->pasien->NamaPasien }}</td>
+                                                            <td width="120px">{{ date('d M Y', strtotime($pemeriksaan->created_at)) }}</td>
+                                                            <td>{{ $pemeriksaan->pasien->NamaPasien }}</td>
                                                             <td>{{ $pemeriksaan->diagnosa->Diagnosa }}</td>
+                                                            <td>Dokter</td>
                                                             
                                                             <td>
-                                                                <a href="/poli/rekap/detail/{{ $pemeriksaan->IdPemeriksaan }}"><button class="btn btn-success">Detail</button></a>
+                                                                <a href="/poli/rekap/detail/"><button class="btn btn-success">Detail</button></a>
                                                             </td>
                                                         </tr>
                                                         @endforeach
+                                                        
                                                         
                                                     </tbody>
                                                 </table>

@@ -6,16 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Diagnosa extends Model{
     protected $table = 'tb_diagnosa';
-    protected $primaryKey = 'idDiagnosa';
+    protected $primaryKey = 'IdDiagnosa';
 
  	protected $fillable = [
-		'IdKunjungan', 'NamaPasien', 'Alamat', 'NoKtp', 'JenisKelamin'
+		'Dokter', 'RiwayatPenyakit', 'KeadaanUmum', 'KeadaanFisik', 'TinggiBadan', 'BeratBadan', 'Tensi', 'Suhu', 'Diagnosa'
 	];
 
-
-	protected $hidden = [
-		'idDiagnosa'
-	];
 
 	
 	// Join

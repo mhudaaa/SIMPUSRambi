@@ -113,10 +113,6 @@
 	background-color: rgba(52, 152, 219,0.05);
 }
 
-#form-diagnosa, #form-rujukan, #form-resep{
-	display: none;
-}
-
 .table.rekap td{
 	vertical-align: top;
 }
@@ -126,4 +122,14 @@
 }
 .tbl-detail td:first-child{
 	font-weight: bold;
+}
+
+.btn, .navbar .navbar-nav > li > a.btn {
+    border-radius: 5px;
+    padding: 9px 20px;
+    border-width: 1px;
+    border-color: #CCC5B9;
+}
+.bootstrap-select.btn-group .dropdown-menu, .bs-searchbox input {
+	border: 1px solid #CCC5B9!important;
 }

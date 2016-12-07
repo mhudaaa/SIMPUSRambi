@@ -15,13 +15,14 @@
 <body>
   <div class="login-form">
      <h1>Simpus Rambi</h1>
-     <form method="post" action="http://localhost/simpus/loket">
+     <form method="post" action="/login">
+     {{ csrf_field() }}
      <div class="form-group ">
-       <input type="text" class="form-control" placeholder="Username " id="UserName">
+       <input type="text" class="form-control" placeholder="Username" name="username" id="username">
        <i class="fa fa-user"></i>
      </div>
      <div class="form-group">
-       <input type="password" class="form-control" placeholder="Password" id="Passwod">
+       <input type="password" class="form-control" placeholder="Password" name="password" id="password">
        <i class="fa fa-lock"></i>
      </div>
       <!-- <span class="alert">Invalid Credentials</span> -->

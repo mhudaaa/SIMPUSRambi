@@ -6,9 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Resep extends Model{
     protected $table = 'tb_resep';
-    protected $primaryKey = 'idResep';
+    protected $primaryKey = 'IdResep';
+    public $timestamps = false;
 
-	protected $hidden = [
-		'idDiagnosa'
+    protected $fillable = [
+		'IdKunjungan', 'Catatan'
 	];
+
+    public function obat(){
+    	return $this->belongsToMany(Obat::class, 'tb_detail_resep', 'IdResep', 'IdObat')->withPivot('Jumlah', 'Dosis');
+    }
+
+    public function kunjungan(){
+    	return $this->hasOne(Kunjungan::class, 'IdResep');
+    }
 }

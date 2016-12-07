@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'pegawai',
         ],
 
         'api' => [
@@ -65,9 +65,10 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'pegawai' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            // 'model' => App\User::class,
+            'model' => App\Model\Pegawai::class,
         ],
 
         // 'users' => [

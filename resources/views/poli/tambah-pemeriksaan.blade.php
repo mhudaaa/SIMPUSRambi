@@ -95,6 +95,7 @@
                                     <div class="row">
                                         <div class="col-sm-9">
                                             <h4 class="title">Tambah Data Pemeriksaan</h4>
+                                            <small class="text-primary">Pasien : <b>{{ $detailKunjungan->pasien->NamaPasien }}</b></small>
                                         </div>
                                         <div class="col-sm-3">
                                             <a href="/poli/"><button class="form-control btn-danger btn-fill">Kembali</button></a>
@@ -122,35 +123,35 @@
 
                                             <div class="tab-content ">
                                                 <div class="tab-pane active" id="1">
-
+                                                    @if($detailKunjungan->IdDiagnosa == 0)
                                                     <br>
-                                                    <div id="tambah-d">
-                                                        <i class="text-warning">Tidak ada data diagnosa.</i><br>
-                                                        <hr>
-                                                        <form method="post" action="{{ url('/poli/tambah/add') }}">
-                                                            {{ csrf_field() }}
-                                                            <input type="hidden" name="IdKunjungan" value="{{ $detailKunjungan->IdKunjungan }}">
-                                                            <input type="submit" id="btn-diagnosa" class="btn btn-info btn-fill" value="Tambah Diagnosa">
-                                                        </form>
-                                                    </div>
-
                                                     <div id="form-diagnosa">
                                                         
                                                         <form method="post" action="{{ url('/poli/tambah/diagnosa') }}"> 
                                                             
                                                             {{ csrf_field() }}
                                                             <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <input type="hidden" name="IdKunjungan" value="1">
+                                                                <div class="col-md-2">
+                                                                    <input type="hidden" name="IdKunjungan" value="{{ $detailKunjungan->IdKunjungan }}">
                                                                     <div class="form-group">
                                                                         <label>Nama Pasien</label>
-                                                                        <input type="text" class="form-control border-input" value="" disabled="">
+                                                                        <input type="text" class="form-control border-input" value="{{ $detailKunjungan->pasien->NamaPasien }}" disabled="">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-9">
+                                                                <div class="col-md-3">
+                                                                    <div class="form-group">
+                                                                        <label>Dokter</label>
+                                                                        <select class="form-control border-input selectpicker" name="Dokter" data-live-search="true" required="">
+                                                                            <option data-tokens="" value="">- Pilih Dokter -</option>
+                                                                            <option data-tokens="muhammad huda" value="1">Muhammad Huda</option>
+                                                                            <option data-tokens="fathoni" value="2">Fathoni</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-7">
                                                                     <div class="form-group">
                                                                         <label>Riwayat Penyakit</label>
-                                                                        <input type="text" name="RiwayatPenyakit" class="form-control border-input" placeholder="Riwayat Penyakit">
+                                                                        <input type="text" name="RiwayatPenyakit" class="form-control border-input" placeholder="Riwayat Penyakit" value="">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -200,7 +201,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
-                                                                         <label>Diagnosa</label>
+                                                                        <label>Diagnosa</label>
                                                                         <textarea name="Diagnosa" class="form-control border-input" placeholder="Masukkan diagnosa pasien"></textarea>
                                                                     </div>
                                                                 </div>
@@ -219,83 +220,136 @@
                                                             </div>
                                                         </form>
                                                     </div>
+                                                    @else
+                                                    <br>
+                                                    <div class="row">
+                                                        <h5 class="subtitle text-primary"><b>Data Diagnosa</b></h5>
+                                                        <div class="col-sm-8">
+                                                            <table class="table tbl-detail">
+                                                                <tr>
+                                                                    <td width="150px;">Nama Pasien</td>
+                                                                    <td>: {{ $detailKunjungan->pasien->NamaPasien }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Tanggal Periksa</td>
+                                                                    <td>: {{ date('d M Y', strtotime($detailKunjungan->created_at)) }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Riwayat Penyakit</td>
+                                                                    <td>: {{ $detailKunjungan->diagnosa->RiwayatPenyakit }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Keadaan Umum</td>
+                                                                    <td>: {{ $detailKunjungan->diagnosa->RiwayatPenyakit }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Keadaan Fisik</td>
+                                                                    <td>: {{ $detailKunjungan->diagnosa->KeadaanFisik }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Diagnosa</td>
+                                                                    <td>: {{ $detailKunjungan->diagnosa->Diagnosa }}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <table class="table tbl-detail">
+                                                                <tr>
+                                                                    <td>Dokter</td>
+                                                                    <td>: Dr. Anu</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="120px;">Tinggi Badan</td>
+                                                                    <td>: {{ $detailKunjungan->diagnosa->TinggiBadan }} cm</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Berat Badan</td>
+                                                                    <td>: {{ $detailKunjungan->diagnosa->BeratBadan }} kg</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Tensi</td>
+                                                                    <td>: {{ $detailKunjungan->diagnosa->Tensi }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Suhu Tubuh</td>
+                                                                    <td>: {{ $detailKunjungan->diagnosa->Suhu }} &#176;C</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    @endif
                                                 </div>
                                                 <div class="tab-pane" id="2">
                                                     <br>
-                                                    
-                                                    <div id="tambah-r">
-                                                        <i class="text-warning">Tidak ada data rujukan.</i><br>
-                                                        <hr>
-                                                        <button id="btn-rujukan" class="btn btn-info btn-fill">Tambah Rujukan</button>
-                                                    </div>
+                                                    @if($detailKunjungan->IdRujukan == 0)
+                                                    <div class="row">
+                                                        <div class="col-sm-8 col-sm-offset-2">
 
-                                                    <div id="form-rujukan">
-                                                        
-                                                        <form method="post" action=""> 
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label>Jenis Rujukan</label>
-                                                                        <select class="form-control border-input" name="jenis-rujukan">
-                                                                            <option value="">Pilih jenis Rujukan</option>
-                                                                            <option value="internal">Internal</option>
-                                                                            <option value="internal">Eksternal</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label>Tujuan Internal</label>
-                                                                         <select class="form-control border-input" name="tujuan-internal">
-                                                                            <option value="">Pilih tujuan</option>
-                                                                            <option value="poli-umum">Poli Umum</option>
-                                                                            <option value="poli-kia">Poli KIA</option>
-                                                                            <option value="poli-gigi">Poli Gigi</option>
-                                                                            <option value="lab">Lab</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label>Tujuan Eksternal</label>
-                                                                        <input type="text" name="tujuan-eksternal" class="form-control border-input" placeholder="Tujuan">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Keterangan</label>
-                                                                        <textarea name="keterangan" class="form-control border-input" placeholder="Masukkan keterangan"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="footer">
-                                                                <hr>
+                                                            <!-- Form -->
+                                                            <form method="post" action="{{ url('/poli/tambah/rujukan') }}"> 
+                                                                {{ csrf_field() }}
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <input type="submit" class="form-control btn-info btn-fill" value="Tambah" name="">
+                                                                            <label>Tujuan</label>
+                                                                            <input type="hidden" name="IdKunjungan" value="{{ $detailKunjungan->IdKunjungan }}">
+                                                                            <input type="text" name="Tujuan" class="form-control border-input" placeholder="Tujuan">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label>Tanggal Rujukan</label> 
+                                                                            <input type="date" name="TanggalRujukan" class="form-control border-input">
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </form>
+
+                                                                <div class="row">
+                                                                     <div class="col-md-12">
+                                                                        <label>Catatan</label>
+                                                                        <textarea name="Catatan" class="form-control border-input" placeholder="Masukkan keterangan"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <br>
+                                                                <div class="footer">
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <input type="submit" class="form-control btn-info btn-fill" value="Tambah" name="">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
                                                     </div>
+                                                    @else
+                                                    <div class="row">
+                                                        <h5 class="subtitle text-primary"><b>Data Rujukan</b></h5>
+                                                        <div class="col-sm-12">
+                                                            <!-- Detail -->
+                                                            <table class="table tbl-detail">
+                                                                <tr>
+                                                                    <td width="150px;">Tujuan</td>
+                                                                    <td>: {{ $detailKunjungan->rujukan->Tujuan }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Tanggal Rujukan</td>
+                                                                    <td>: {{ $detailKunjungan->rujukan->TanggalRujukan }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Catatan</td>
+                                                                    <td>: {{ $detailKunjungan->rujukan->Catatan }}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    @endif
                                                 </div>
                                                 <div class="tab-pane" id="3">
                                                     <br>
-
-                                                    <div id="tambah-rp">
-                                                        <i class="text-warning">Tidak ada data resep.</i><br>
-                                                        <hr>
-                                                        <button id="btn-resep" class="btn btn-info btn-fill">Tambah Resep</button>
-                                                    </div>
-
                                                     <div id="form-resep">  
-
                                                         <table class="table table-striped">
                                                             <thead>
                                                                 <th width="60px;">No</th>
@@ -305,65 +359,98 @@
                                                                 <th width="100px;">Aksi</th>
                                                             </thead>
                                                             <tbody>
+                                                                @if($detailKunjungan->IdResep != 0)
+                                                                @foreach($detailKunjungan->resep->obat as $no=>$obat)
                                                                 <tr>
-                                                                    <td>1</td>
-                                                                    <td>Promag</td>
-                                                                    <td>2 tablet</td>
-                                                                    <td>2 x sehari</td>
-                                                                    <td><button class="btn btn-danger">Hapus</button></td>
+                                                                    <td>{{ ++$no }}</td>
+                                                                    <td>{{ $obat->NamaObat }}</td>
+                                                                    <td>{{ $obat->pivot->Jumlah }} {{ $obat->JenisObat }}</td>
+                                                                    <td>{{ $obat->pivot->Dosis }}</td>
+                                                                    <td><a href="{{ url('/poli/hapus/obat/'.$detailKunjungan->resep->IdResep.'/'.$obat->IdObat) }}"><button class="btn btn-danger">Hapus</button></a></td>
                                                                 </tr>
+                                                                @endforeach
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                         
                                                         <br>
 
+                                                        <!-- Tambah obat -->
                                                         <div class="konten bg-blue">
-                                                        <h4 class="text-danger">Tambah Obat</h4>
-                                                            <form method="post" action=""> 
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label>Nama Obat</label>
-                                                                        <select class="form-control border-input selectpicker" name="jenis-rujukan" data-live-search="true">
-                                                                            <option data-tokens="" value="">Pilih nama obat</option>
-                                                                            <option data-tokens="bodrexin" value="1">Bodrexin</option>
-                                                                            <option data-tokens="promag" value="2">Promag</option>
-                                                                            <option data-tokens="diapet" value="3">Diapet</option>
-                                                                            <option data-tokens="obat merah" value="4">Obat Merah</option>
-                                                                            <option data-tokens="konidin" value="5">Konidin</option>
-                                                                            <option data-tokens="paracetamol" value="6">Paracetamol</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
+                                                            <h4 class="text-danger">Tambah Obat</h4>
+                                                            <form method="post" action="{{ url('/poli/tambah/obat') }}"> 
 
-                                                                <div class="col-md-2">
-                                                                    <div class="form-group">
-                                                                        <label>Jumlah</label>
-                                                                        <input type="text" name="jumlah" class="form-control border-input" placeholder="Jumlah">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Dosis</label>
-                                                                        <input type="text" name="dosis" class="form-control border-input" placeholder="Dosis">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="footer">
-                                                                <hr>
+                                                                {{ csrf_field() }}
                                                                 <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <input type="hidden" name="IdKunjungan" value="{{ $detailKunjungan->IdKunjungan }}">
+                                                                        <div class="form-group">
+                                                                            <label>Nama Obat</label>
+                                                                            <select class="form-control border-input selectpicker" name="IdObat" data-live-search="true">
+                                                                                <option data-tokens="" value="">Pilih nama obat</option>
+                                                                                @foreach($obats as $obat)
+                                                                                <option data-tokens="{{ strtolower($obat->NamaObat) }}" value="{{ $obat->IdObat }}">{{ $obat->NamaObat }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label>Jumlah</label>
+                                                                            <input type="text" name="Jumlah" class="form-control border-input" placeholder="Jumlah">
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <input type="submit" class="form-control btn-info btn-fill" value="Tambah" name="">
+                                                                            <label>Dosis</label>
+                                                                            <input type="text" name="Dosis" class="form-control border-input" placeholder="Dosis">
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </form>
-                                                        </div>
-                                                        
+
+                                                                <div class="footer">
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <input type="submit" class="form-control btn-info btn-fill" value="Tambah" name="">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div> 
+
+                                                        <!-- Tambah Catatan -->
+                                                        <div class="konten">
+                                                            <h4 class="text-danger">Catatan</h4>
+                                                            <form method="post" action="{{ url('/poli/tambah/catatanResep') }}"> 
+
+                                                                {{ csrf_field() }}
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <input type="hidden" name="IdResep" value="{{ $detailKunjungan->IdResep }}">
+                                                                        <input type="hidden" name="IdKunjungan" value="{{ $detailKunjungan->IdKunjungan }}">
+                                                                        <div class="form-group">
+                                                                            <label>Catatan Resep</label>
+                                                                            <textarea name="Catatan" class="form-control border-input" placeholder="Masukkan catatan resep">{{ $detailKunjungan->resep->Catatan }}</textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="footer">
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <input type="submit" class="form-control btn-info btn-fill" value="Perbarui" name="">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div> 
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane" id="4">
@@ -373,7 +460,6 @@
                                                 </div>
                                             </div>
                                       </div>
-
                                    
                                 </div>
                             </div>
