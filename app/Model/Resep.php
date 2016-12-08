@@ -10,7 +10,7 @@ class Resep extends Model{
     public $timestamps = false;
 
     protected $fillable = [
-		'IdKunjungan', 'Catatan'
+		'Catatan'
 	];
 
     public function obat(){

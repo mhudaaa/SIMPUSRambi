@@ -34,18 +34,12 @@ class Kunjungan extends Model{
 	}
 
 
-	// Menampilkan data kunjungan yang ke poli umum
-	public function scopeUmum($query) {
-		return $query->where('IdUnit', 1);
+	// Menampilkan data pasien yang belum ditangani
+	public function scopeBelumDitangani($query) {
+		return $query->where('status', 0);
 	}
 
-	// Menampilkan data kunjungan yang ke poli gigi
-	public function scopeGigi($query) {
-		return $query->where('IdUnit', 2);
-	}
-
-	// Menampilkan data kunjungan yang ke poli kia
-	public function scopeKia($query) {
-		return $query->where('IdUnit', 3);
+	public function scopeSudahDitangani($query) {
+		return $query->where('status', 1);
 	}
 }

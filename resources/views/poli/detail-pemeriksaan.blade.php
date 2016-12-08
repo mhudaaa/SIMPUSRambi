@@ -95,6 +95,7 @@
                                     <div class="row">
                                         <div class="col-sm-9">
                                             <h4 class="title">Rincian Data Pemeriksaan</h4>
+                                            <small class="text-success">Pasien : <b>{{ $detailPemeriksaan->pasien->NamaPasien }}</b></small>
                                         </div>
                                         <div class="col-sm-3">
                                             <a href="/poli/rekap"><button class="form-control btn-danger btn-fill">Kembali</button></a>

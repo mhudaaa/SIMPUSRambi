@@ -10,12 +10,13 @@ use App\Model\Pasien;
 use App\Model\Rujukan;
 use App\Model\Obat;
 use App\Model\Resep;
+use App\Model\Pegawai;
 use Auth;
 
 class PoliController extends Controller{
 
     public function index(){
-        $antrians   = Kunjungan::all();
+        $antrians   = Kunjungan::belumDitangani()->get();
         $pasiens    = Pasien::all();
         return view('/poli/antrian', compact('antrians', 'pasiens'));
     }
@@ -25,7 +26,8 @@ class PoliController extends Controller{
     public function tambahPemeriksaan($id){
         $detailKunjungan = Kunjungan::findOrFail($id);
         $obats           = Obat::all();
-        return view('/poli/tambah-pemeriksaan', compact('detailKunjungan', 'obats'));
+        $dokters         = Pegawai::dokter()->get();
+        return view('/poli/tambah-pemeriksaan', compact('detailKunjungan', 'obats', 'dokters'));
     }
 
 
@@ -82,13 +84,22 @@ class PoliController extends Controller{
 
     // Menampilkan daftar rekap pemeriksaan
     public function rekapPemeriksaan(){
-        $pemeriksaans = Kunjungan::all();
+        $pemeriksaans = Kunjungan::sudahDitangani()->get();
         return view('/poli/rekap-pemeriksaan', compact('pemeriksaans'));
     }
 
     // Menampilkan detail data pemeriksaan
     public function detailPemeriksaan($id){
-        return view('/poli/detail-pemeriksaan');
+        $detailPemeriksaan = Kunjungan::findOrFail($id);
+        return view('/poli/detail-pemeriksaan', compact('detailPemeriksaan'));
+    }
+
+    // Update status kunjungan
+    public function ubahStatusPemeriksaan($id){
+        $kunjungan = Kunjungan::findOrFail($id);
+        $kunjungan->status = 1;
+        $kunjungan->update();
+        return redirect('/poli');
     }
 
 

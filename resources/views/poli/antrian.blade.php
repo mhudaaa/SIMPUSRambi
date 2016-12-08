@@ -97,7 +97,7 @@
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <h4 class="title">Antrian Pasien</h4>  
-                                            <p class="category">Kamis, 17 November 2016</p>
+                                            <p class="category">{{ date("l, d M Y") }}</p>
                                         </div>
                                         <form method="post" action="">
                                             <div class="col-sm-3 text-right">

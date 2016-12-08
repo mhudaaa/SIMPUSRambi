@@ -94,12 +94,15 @@
                             <div class="card">
                                 <div class="header">
                                     <div class="row">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <h4 class="title">Tambah Data Pemeriksaan</h4>
                                             <small class="text-primary">Pasien : <b>{{ $detailKunjungan->pasien->NamaPasien }}</b></small>
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-2">
                                             <a href="/poli/"><button class="form-control btn-danger btn-fill">Kembali</button></a>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <a href="/poli/submit/pemeriksaan/{{ $detailKunjungan->IdKunjungan }}"><button class="form-control btn-success btn-fill btn-selesa" data-title="Selesai ?">Selesai</button></a>
                                         </div>
                                     </div>
 
@@ -536,6 +539,26 @@
                     }
                 });
             
+            });
+
+            // Ketika klik selesai
+            $('button.btn-selesai').confirm({
+
+                content: 'Selesai menambahkan data?',
+                buttons: {
+                    Ok: {
+                        btnClass: 'btn-success btn-fill',
+                        text: 'Ok',
+                        keys: ['enter'],
+                        action: function () {
+                            location.href = this.$target.attr('href');
+                        }
+                    },
+                    Batal: {
+                        btnClass: 'btn-fill btn-default ',
+                        text: 'Batal',
+                    }
+                }
             });
         });
     </script>

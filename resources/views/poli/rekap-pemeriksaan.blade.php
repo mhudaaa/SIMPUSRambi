@@ -121,7 +121,7 @@
                                 <div class="content table-responsive ">
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <div class="konten">
+                                            <!-- <div class="konten"> -->
                                                 <!-- <h6 class="title text-danger">Kamis, 17 November 2016</h6> -->
 
                                                  <table class="table table-striped rekap">
@@ -157,7 +157,7 @@
                                                         
                                                     </tbody>
                                                 </table>
-                                            </div>
+                                            <!-- </div> -->
                                         </div>
                                     </div>
                                    

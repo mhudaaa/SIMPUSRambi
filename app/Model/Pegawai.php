@@ -13,4 +13,9 @@ class Pegawai extends Authenticatable{
     // protected $hidden = ['password'];
 
     public $increment = false;
+
+    // Menampilkan dokter
+	public function scopeDokter($query) {
+		return $query->where('Jabatan', 'Dokter');
+	}
 }
