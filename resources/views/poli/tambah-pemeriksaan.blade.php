@@ -16,6 +16,7 @@
     <link href="{{ URL::asset('assets/dashboard/css/demo.css') }}" rel="stylesheet" />
     <link href="{{ URL::asset('assets/dashboard/css/bootstrap-select.css') }}" rel="stylesheet" />
     <link href="{{ URL::asset('assets/dashboard/css/themify-icons.css') }}" rel="stylesheet" />
+    <link href="{{ URL::asset('assets/dashboard/css/jquery-confirm.css') }}" rel="stylesheet" />
 
     <title>SIMPUS Rambipuji - Poli</title>
 </head>
@@ -127,8 +128,7 @@
                                                     <br>
                                                     <div id="form-diagnosa">
                                                         
-                                                        <form method="post" action="{{ url('/poli/tambah/diagnosa') }}"> 
-                                                            
+                                                        <form method="post" class="form-tambah" action="{{ url('/poli/tambah/diagnosa') }}"> 
                                                             {{ csrf_field() }}
                                                             <div class="row">
                                                                 <div class="col-md-2">
@@ -143,8 +143,9 @@
                                                                         <label>Dokter</label>
                                                                         <select class="form-control border-input selectpicker" name="Dokter" data-live-search="true" required="">
                                                                             <option data-tokens="" value="">- Pilih Dokter -</option>
-                                                                            <option data-tokens="muhammad huda" value="1">Muhammad Huda</option>
-                                                                            <option data-tokens="fathoni" value="2">Fathoni</option>
+                                                                            @foreach($dokters as $dokter)
+                                                                            <option data-tokens="{{ $dokter->NamaPegawai }}" value="{{ $dokter->IdPegawai }}">{{ $dokter->NamaPegawai }}</option>
+                                                                            @endforeach
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -213,7 +214,7 @@
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <input type="submit" class="form-control btn-info btn-fill" value="Tambah" name="">
+                                                                            <input type="submit" class="form-control btn-confirm btn-info btn-fill" value="Tambah" name="">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -240,7 +241,7 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Keadaan Umum</td>
-                                                                    <td>: {{ $detailKunjungan->diagnosa->RiwayatPenyakit }}</td>
+                                                                    <td>: {{ $detailKunjungan->diagnosa->KeadaanUmum }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Keadaan Fisik</td>
@@ -256,7 +257,7 @@
                                                             <table class="table tbl-detail">
                                                                 <tr>
                                                                     <td>Dokter</td>
-                                                                    <td>: Dr. Anu</td>
+                                                                    <td>: {{ $detailKunjungan->diagnosa->NamaPegawai }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td width="120px;">Tinggi Badan</td>
@@ -286,7 +287,7 @@
                                                         <div class="col-sm-8 col-sm-offset-2">
 
                                                             <!-- Form -->
-                                                            <form method="post" action="{{ url('/poli/tambah/rujukan') }}"> 
+                                                            <form method="post" class="form-tambah" action="{{ url('/poli/tambah/rujukan') }}"> 
                                                                 {{ csrf_field() }}
                                                                 <div class="row">
                                                                     <div class="col-md-6">
@@ -316,7 +317,7 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
-                                                                                <input type="submit" class="form-control btn-info btn-fill" value="Tambah" name="">
+                                                                                <input type="submit" class="form-control btn-confirm btn-info btn-fill" value="Tambah" name="">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -422,6 +423,7 @@
                                                             </form>
                                                         </div> 
 
+                                                        @if($detailKunjungan->IdResep != 0)
                                                         <!-- Tambah Catatan -->
                                                         <div class="konten">
                                                             <h4 class="text-danger">Catatan</h4>
@@ -450,7 +452,8 @@
                                                                     </div>
                                                                 </div>
                                                             </form>
-                                                        </div> 
+                                                        </div>
+                                                        @endif 
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane" id="4">
@@ -482,6 +485,8 @@
     <script src="{{ URL::asset('assets/dashboard/js/paper-dashboard.js') }}" type="text/javascript"></script>
     <script src="{{ URL::asset('assets/dashboard/js/bootstrap-select.js') }}" type="text/javascript"></script>
     <script src="{{ URL::asset('assets/dashboard/js/demo.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('assets/dashboard/js/jquery-confirm.js') }}" type="text/javascript"></script>
+
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -502,6 +507,35 @@
                 $("#form-resep").fadeIn("slow");
                 $("#tambah-rp").hide();
                 
+            });
+
+            // Submit confirm
+            $('.btn-confirm').on('click', function (event) {
+            event.preventDefault();
+            
+                $.confirm({
+                
+                    title: 'Simpan!',
+                    content: 'Data yang telah anda masukkan tidak dapat diubah. Periksa data terlebih dahulu',
+                    buttons: {
+                        confirm: {
+                            btnClass: 'btn-primary z-depth-0',
+                            text: 'Simpan',
+                            keys: ['enter'],
+                            action: function () {
+                                $('.form-tambah').submit();
+                            }
+                        },
+                        cancel: {
+                            btnClass: 'z-depth-0 btn-muted',
+                            text: 'Batal',
+                            action: function () {
+                                $.alert('Periksa data kembali');
+                            }
+                        }
+                    }
+                });
+            
             });
         });
     </script>

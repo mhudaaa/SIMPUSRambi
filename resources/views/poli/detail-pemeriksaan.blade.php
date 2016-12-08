@@ -131,27 +131,27 @@
                                                             <table class="table tbl-detail">
                                                                 <tr>
                                                                     <td width="150px;">Nama Pasien</td>
-                                                                    <td>: nama</td>
+                                                                    <td>: {{ $detailPemeriksaan->pasien->NamaPasien }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Tanggal Periksa</td>
-                                                                    <td>: 11-12-2015</td>
+                                                                    <td>: {{ date('d M Y', strtotime($detailPemeriksaan->created_at)) }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Riwayat Penyakit</td>
-                                                                    <td>: riwayat</td>
+                                                                    <td>: {{ $detailPemeriksaan->diagnosa->RiwayatPenyakit }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Keadaan Umum</td>
-                                                                    <td>: keadaan</td>
+                                                                    <td>: {{ $detailPemeriksaan->diagnosa->KeadaanUmum }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Keadaan Fisik</td>
-                                                                    <td>: fisik</td>
+                                                                    <td>: {{ $detailPemeriksaan->diagnosa->KeadaanUmum }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Diagnosa</td>
-                                                                    <td>: dd</td>
+                                                                    <td>: {{ $detailPemeriksaan->diagnosa->KeadaanUmum }}</td>
                                                                 </tr>
                                                             </table>
                                                         </div>
@@ -159,23 +159,23 @@
                                                             <table class="table tbl-detail">
                                                                 <tr>
                                                                     <td>Dokter</td>
-                                                                    <td>: Dr. Huda</td>
+                                                                    <td>: -</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td width="120px;">Tinggi Badan</td>
-                                                                    <td>: tgg cm</td>
+                                                                    <td>: {{ $detailPemeriksaan->diagnosa->TinggiBadan }} cm</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Berat Badan</td>
-                                                                    <td>:  kg</td>
+                                                                    <td>: {{ $detailPemeriksaan->diagnosa->BeratBadan }} kg</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Tensi</td>
-                                                                    <td>: </td>
+                                                                    <td>: {{ $detailPemeriksaan->diagnosa->Tensi }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Suhu Tubuh</td>
-                                                                    <td>:  &#176;C</td>
+                                                                    <td>: {{ $detailPemeriksaan->diagnosa->Suhu }}&#176;C</td>
                                                                 </tr>
                                                             </table>
                                                         </div>
@@ -186,15 +186,19 @@
 
                                                     <div class="row">
                                                         <h6 class="subtitle text-primary">Data Rujukan</h6>
-                                                        <div class="col-sm-8">
+                                                        <div class="col-sm-12">
                                                             <table class="table tbl-detail">
                                                                 <tr>
-                                                                    <td width="150px;">Perujuk</td>
-                                                                    <td>: </td>
+                                                                    <td width="150px;">Tujuan</td>
+                                                                    <td>: {{ $detailPemeriksaan->rujukan->Tujuan }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Tujuan</td>
-                                                                    <td>: </td>
+                                                                    <td>Tanggal Rujukan</td>
+                                                                    <td>: {{  date('d M Y', strtotime($detailPemeriksaan->rujukan->TanggalRujukan)) }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Catatan</td>
+                                                                    <td>: {{ $detailPemeriksaan->rujukan->Catatan }}</td>
                                                                 </tr>
                                                                 
                                                             </table>
@@ -206,29 +210,31 @@
                                                     <div class="row">
                                                         <h6 class="subtitle text-primary">Data Resep</h6>
                                                         <div class="col-sm-12">
+                                                            @if($detailPemeriksaan->IdResep != 0)
                                                             <table class="table tbl-detail">
                                                                 <thead>
-                                                                    <th>No</th>
+                                                                    <th width="20px">No</th>
                                                                     <th>Nama Obat</th>
                                                                     <th>Jumlah</th>
                                                                     <th>Dosis</th>
                                                                 </thead>
                                                                 <tbody>
+                                                                    @foreach($detailPemeriksaan->resep->obat as $no=>$obat)
                                                                     <tr>
-                                                                        <td width="40px;">1</td>
-                                                                        <td>Paracetamol</td>
-                                                                        <td>1 botol</td>
-                                                                        <td>3x sehari sebelum makan</td>
+                                                                        <td class="text-center">{{ ++$no }}</td>
+                                                                        <td>{{ $obat->NamaObat }}</td>
+                                                                        <td>{{ $obat->pivot->Jumlah }} {{ $obat->JenisObat }}</td>
+                                                                        <td>{{ $obat->pivot->Dosis }}</td>
                                                                     </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
+                                                            @endif
                                                             <hr>
                                                             <div class="konten catatan bg-red">
                                                                 
                                                                 <h6 class="text-danger">Catatan :</h6><br>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                                                quis nostrud exercitation ullamco</p>
+                                                                <p>{{ $detailPemeriksaan->resep->Catatan }}</p>
                                                             </div>
                                                         </div>
                                                     </div>

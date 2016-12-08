@@ -140,11 +140,16 @@
                                                             <td width="40px">{{ ++$no }}</td>
                                                             <td width="120px">{{ date('d M Y', strtotime($pemeriksaan->created_at)) }}</td>
                                                             <td>{{ $pemeriksaan->pasien->NamaPasien }}</td>
+                                                            @if($pemeriksaan->IdDiagnosa != 0)
                                                             <td>{{ $pemeriksaan->diagnosa->Diagnosa }}</td>
                                                             <td>Dokter</td>
-                                                            
+                                                            @else
+                                                            <td><i class="text-danger">Data Diagnosa belum dimasukkan</i></td>
+                                                            <td>-</td>
+                                                            @endif
                                                             <td>
-                                                                <a href="/poli/rekap/detail/"><button class="btn btn-success">Detail</button></a>
+
+                                                                <a href="/poli/rekap/detail/{{ $pemeriksaan->IdKunjungan }}"><button class="btn btn-success">Detail</button></a>
                                                             </td>
                                                         </tr>
                                                         @endforeach
