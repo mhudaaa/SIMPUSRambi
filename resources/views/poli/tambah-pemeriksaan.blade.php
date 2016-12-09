@@ -17,7 +17,6 @@
     <link href="{{ URL::asset('assets/dashboard/css/bootstrap-select.css') }}" rel="stylesheet" />
     <link href="{{ URL::asset('assets/dashboard/css/themify-icons.css') }}" rel="stylesheet" />
     <link href="{{ URL::asset('assets/dashboard/css/jquery-confirm.css') }}" rel="stylesheet" />
-
     <title>SIMPUS Rambipuji - Poli</title>
 </head>
 <body>
@@ -89,6 +88,17 @@
                         </div>
                     </div>
 
+                    @if(Session::has('message'))
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-success">
+                                <button type="button" aria-hidden="true" class="close">×</button>
+                                <span>{{ Session::get('message') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
                     <div class="row">
                          <div class="col-md-12">
                             <div class="card">
@@ -131,7 +141,7 @@
                                                     <br>
                                                     <div id="form-diagnosa">
                                                         
-                                                        <form method="post" class="form-tambah" action="{{ url('/poli/tambah/diagnosa') }}"> 
+                                                        <form method="post" class="form-tambah-d" action="{{ url('/poli/tambah/diagnosa') }}"> 
                                                             {{ csrf_field() }}
                                                             <div class="row">
                                                                 <div class="col-md-2">
@@ -217,7 +227,7 @@
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <input type="submit" class="form-control btn-confirm btn-info btn-fill" value="Tambah" name="">
+                                                                            <input type="submit" class="form-control btn-confirm-d btn-info btn-fill" value="Tambah" name="">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -290,7 +300,7 @@
                                                         <div class="col-sm-8 col-sm-offset-2">
 
                                                             <!-- Form -->
-                                                            <form method="post" class="form-tambah" action="{{ url('/poli/tambah/rujukan') }}"> 
+                                                            <form method="post" class="form-tambah-r" action="{{ url('/poli/tambah/rujukan') }}"> 
                                                                 {{ csrf_field() }}
                                                                 <div class="row">
                                                                     <div class="col-md-6">
@@ -320,7 +330,7 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
-                                                                                <input type="submit" class="form-control btn-confirm btn-info btn-fill" value="Tambah" name="">
+                                                                                <input type="submit" class="form-control btn-confirm-r btn-info btn-fill" value="Tambah" name="">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -513,7 +523,7 @@
             });
 
             // Submit confirm
-            $('.btn-confirm').on('click', function (event) {
+            $('.btn-confirm-d').on('click', function (event) {
             event.preventDefault();
             
                 $.confirm({
@@ -526,7 +536,36 @@
                             text: 'Simpan',
                             keys: ['enter'],
                             action: function () {
-                                $('.form-tambah').submit();
+                                $('.form-tambah-d').submit();
+                            }
+                        },
+                        cancel: {
+                            btnClass: 'z-depth-0 btn-muted',
+                            text: 'Batal',
+                            action: function () {
+                                $.alert('Periksa data kembali');
+                            }
+                        }
+                    }
+                });
+            
+            });
+
+            // Submit confirm
+            $('.btn-confirm-r').on('click', function (event) {
+            event.preventDefault();
+            
+                $.confirm({
+                
+                    title: 'Simpan!',
+                    content: 'Data yang telah anda masukkan tidak dapat diubah. Periksa data terlebih dahulu',
+                    buttons: {
+                        confirm: {
+                            btnClass: 'btn-primary z-depth-0',
+                            text: 'Simpan',
+                            keys: ['enter'],
+                            action: function () {
+                                $('.form-tambah-r').submit();
                             }
                         },
                         cancel: {

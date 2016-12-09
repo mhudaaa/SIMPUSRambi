@@ -90,6 +90,17 @@
                         </div>
                     </div>
 
+                    @if(Session::has('message'))
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-success">
+                                <button type="button" aria-hidden="true" class="close">×</button>
+                                <span>{{ Session::get('message') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">

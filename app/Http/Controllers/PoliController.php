@@ -37,7 +37,7 @@ class PoliController extends Controller{
         $kunjungan = Kunjungan::find($request->IdKunjungan);
         $kunjungan->IdDiagnosa = $diagnosa->IdDiagnosa;
         $kunjungan->update();
-        return redirect('/poli/tambah/'.$request->IdKunjungan);
+        return redirect('/poli/tambah/'.$request->IdKunjungan)->with('message', 'Data Diagnosa berhasil ditambahkan');
     }
 
     // tambah rujukan
@@ -46,7 +46,7 @@ class PoliController extends Controller{
         $kunjungan = Kunjungan::find($request->IdKunjungan);
         $kunjungan->IdRujukan = $rujukan->IdRujukan;
         $kunjungan->update();
-        return redirect('/poli/tambah/'.$request->IdKunjungan);
+        return redirect('/poli/tambah/'.$request->IdKunjungan)->with('message', 'Data Rujukan berhasil disimpan');
     }
     
     // Tambah obat
@@ -63,7 +63,7 @@ class PoliController extends Controller{
         }
 
         $resep->obat()->attach($request->IdObat, ['Jumlah' => $request->Jumlah, 'Dosis' => $request->Dosis]);
-        return redirect('/poli/tambah/'.$request->IdKunjungan);
+        return redirect('/poli/tambah/'.$request->IdKunjungan)->with('message', 'Resep berhasil ditambahkan');
     }
 
     // Tambah catatan resep
@@ -72,14 +72,14 @@ class PoliController extends Controller{
         $resep = Resep::find($request->IdResep);
         $resep->Catatan = $request->Catatan;
         $resep->update();
-        return redirect('/poli/tambah/'.$request->IdKunjungan);
+        return redirect('/poli/tambah/'.$request->IdKunjungan)->with('message', 'Catatan resep berhasil disimpan');
     }
 
     // Hapus obat
     public function hapusObat($resep, $obat){
         $resep = Resep::find($resep);
         $resep->obat()->detach($obat);
-        return redirect('/poli/tambah/'.$resep->kunjungan->IdKunjungan);
+        return redirect('/poli/tambah/'.$resep->kunjungan->IdKunjungan)->with('message', 'Obat berhasil dihapus dari daftar resep');
     }
 
     // Menampilkan daftar rekap pemeriksaan
@@ -99,7 +99,7 @@ class PoliController extends Controller{
         $kunjungan = Kunjungan::findOrFail($id);
         $kunjungan->status = 1;
         $kunjungan->update();
-        return redirect('/poli');
+        return redirect('/poli')->with('message', 'Selesai. Data pemeriksaan telah dimasukkan ke Rekap Pemeriksaan');
     }
 
 
