@@ -42,7 +42,7 @@
                                             <small class="text-primary">Pasien : <b>{{ $detailKunjungan->pasien->NamaPasien }}</b></small>
                                         </div>
                                         <div class="col-sm-2">
-                                            <a href="/poli/"><button class="form-control btn-danger btn-fill">Kembali</button></a>
+                                            <a href="/poli/antrian"><button class="form-control btn-danger btn-fill">Kembali</button></a>
                                         </div>
                                         <div class="col-sm-2">
                                             <a href="/poli/submit/pemeriksaan/{{ $detailKunjungan->IdKunjungan }}"><button class="form-control btn-success btn-fill btn-selesa" data-title="Selesai ?">Selesai</button></a>

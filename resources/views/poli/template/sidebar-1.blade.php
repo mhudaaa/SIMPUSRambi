@@ -7,8 +7,14 @@
                 </div>
 
                 <ul class="nav">
-                    <li class="active">
+                    <li>
                         <a href="/poli">
+                            <i class="ti-home"></i>
+                            <p>Beranda</p>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/poli/antrian">
                             <i class="ti-ticket"></i>
                             <p>Antrian</p>
                         </a>

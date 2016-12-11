@@ -7,7 +7,7 @@
                 </div>
 
                 <ul class="nav">
-                    <li>
+                    <li class="active">
                         <a href="/poli">
                             <i class="ti-home"></i>
                             <p>Beranda</p>
@@ -19,7 +19,7 @@
                             <p>Antrian</p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="/poli/rekap">
                             <i class="ti-clipboard"></i>
                             <p>Rekap Pemeriksaan</p>
