@@ -9,12 +9,12 @@ class Kunjungan extends Model{
     protected $primaryKey = 'IdKunjungan';
 
     protected $fillable = [
-		'RiwayatPenyakit', 'KeadaanUmum', 'KeadaanFisik', 'TinggiBadan', 'BeratBadan', 'Suhu', 'Tensi', 'Diagnosa'
+		'IdPasien', 'CaraBayar', 'UnitTujuan', 'IdDiagnosa', 'IdRujukan', 'IdResep', 'IdPemeriksaanLab', 'IdRawatInap', 'status'
 	];
 
-	protected $hidden = [
-		'idKunjungan'
-	];
+	// protected $hidden = [
+	// 	'IdKunjungan'
+	// ];
 
 	// Join
 	public function pasien(){
@@ -33,6 +33,9 @@ class Kunjungan extends Model{
 		return $this->belongsTo(Resep::class, 'IdResep');
 	}
 
+	public function unit(){
+		return $this->belongsTo(Unit::class,'UnitTujuan');
+	}
 
 	// Menampilkan data pasien yang belum ditangani
 	public function scopeBelumDitangani($query) {

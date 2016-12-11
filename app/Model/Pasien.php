@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pasien extends Model{
     protected $table = 'tb_pasien';
-    protected $primaryKey = 'idPasien';
+    protected $primaryKey = 'IdPasien';
 
-	protected $hidden = [
-		'idPasien'
+	protected $fillable = [
+		'NamaPasien', 'Alamat', 'NoKtp', 'TanggalLahir', 'JenisKelamin', 'Agama', 'NamaOrangTua', 'NoTelepon', 'JenisPasien', 'NoBpjs'
 	];
 }

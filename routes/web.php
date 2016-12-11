@@ -21,6 +21,26 @@ Route::get('/', function () {
     return view('login');
 });
 
+// LOKET ---------------------------------------------------------------------------
+Route::get('/loket', function () {
+    return view('loket/home-loket');
+});
+//Pasien
+Route::get('/loket/pasien', 'PasienController@index');
+Route::get('/loket/pasien/detail/{IdPasien}', 'PasienController@detailPasien');
+Route::get('/loket/pasien/ubah/{IdPasien}', 'PasienController@formUbahPasien');
+Route::post('/loket/pasien/ubah-pasien/{IdPasien}', 'PasienController@ubahPasien');
+Route::get('/loket/pasien/tambah-pasien', 'PasienController@formTambahPasien');
+Route::post('/loket/pasien/tambah', 'PasienController@tambahPasien');
+// Kunjungan
+Route::get('/loket/kunjungan','KunjunganController@index');
+Route::get('/loket/kunjungan/detail/{IdKunjungan}', 'KunjunganController@detailKunjungan');
+Route::get('/loket/kunjungan/ubah/{IdKunjungan}', 'KunjunganController@formUbahKunjungan');
+Route::post('/loket/kunjungan/ubah-kunjungan/{IdKunjungan}', 'KunjunganController@ubahKunjungan');
+Route::get('/loket/kunjungan/tambah-kunjungan', 'KunjunganController@formTambahKunjungan');
+Route::post('/loket/kunjungan/tambah', 'KunjunganController@tambahKunjungan');
+
+
 // POLI --------------------------------------------------------------------------
 // Pemeriksaan
 Route::get('/poli', 'PoliController@home');
@@ -44,21 +64,4 @@ Route::get('/poli/hapus/obat/{resep}/{obat}', 'PoliController@hapusObat');
 Route::get('/poli/rekap', 'PoliController@rekapPemeriksaan');
 Route::get('/poli/rekap/detail/{id}', 'PoliController@detailPemeriksaan');
 
-
-// LOKET ---------------------------------------------------------------------------
-Route::get('/loket', function () {
-    return view('loket.v_homeLoket');
-});
-//Pasien
-Route::resource('pasien', 'c_pasien');
-Route::get('Form Pasien','c_pasien@fPasien');
-Route::post('Tambah Pasien','c_pasien@tambahPasien');
-Route::get('Form Ubah Pasien/{id}','c_pasien@fUpdatePasien');
-Route::post('Ubah Pasien/{id}','c_pasien@ubahPasien');
-//Kunjungan
-Route::resource('kunjungan', 'c_kunjungan');
-Route::get('Form Kunjungan','c_kunjungan@fKunjungan');
-Route::post('Tambah Kunjungan','c_kunjungan@tambahKunjungan');
-Route::get('Form Ubah Kunjungan/{IdKunjungan}','c_kunjungan@fUpdateKunjungan');
-Route::post('Ubah Kunjungan/{IdKunjungan}','c_kunjungan@ubahKunjungan');
 

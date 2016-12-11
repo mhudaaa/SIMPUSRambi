@@ -15,6 +15,12 @@ use Auth;
 
 class PoliController extends Controller{
 
+    public function home(){
+        $antrians   = Kunjungan::belumDitangani()->get();
+        $pasiens    = Pasien::all();
+        return view('/poli/beranda', compact('antrians', 'pasiens'));
+    }
+
     public function index(){
         $antrians   = Kunjungan::belumDitangani()->get();
         $pasiens    = Pasien::all();
