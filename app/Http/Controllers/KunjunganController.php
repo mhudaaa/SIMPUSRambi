@@ -11,17 +11,30 @@ use App\Model\Pasien;
 
 class KunjunganController extends Controller{
 
+    // Menampilkan daftar kunjungan
     public function index(){
         $kunjungans = Kunjungan::belumDitangani()->orderBy('created_at', 'desc')->get();
         $unit = Unit::all();
         return view('loket/kunjungan', compact('kunjungans','unit'));
     }
 
+    // Menampilkan detail data kunjungan pasien
     public function detailKunjungan($IdKunjungan){
         $kunjungans = Kunjungan::findOrFail($IdKunjungan);
         return view('loket/detail-kunjungan', compact('kunjungans'));
     }
 
+    // Fungsi untuk mencari data kunjungan berdasarkan nama pasien
+    public function cariKunjungan(Request $request){
+        $kunjungans = Kunjungan::whereHas('pasien', function($query) use ($request) {
+            $query->where('NamaPasien', 'like', '%'.$request->NamaPasien.'%');
+        })->get();
+        $jmlHasil = $kunjungans->count();
+        $request->session()->flash('message', 'Menampilkan Data kunjungan dengan nama pasien = '.$request->NamaPasien.'');
+        return view('loket/cari-kunjungan', compact('kunjungans', 'jmlHasil'));
+    }  
+
+    // Menampilkan halaman ubah pasien
     public function formUbahKunjungan($IdKunjungan){
         $kunjungans = Kunjungan::findOrFail($IdKunjungan);
         $pasien = Pasien::all();
@@ -35,14 +48,18 @@ class KunjunganController extends Controller{
         $kunjungan->JenisPerawatan = $request->JenisPerawatan;
         $kunjungan->UnitTujuan = $request->UnitTujuan;
         $kunjungan->save();
-        return redirect('/loket/kunjungan');
+        return redirect('/loket/kunjungan')->with('message', 'Data Kunjungan berhasil diubah.');
     }
 
+    // Menampilkan form tambah kunjungan
     public function formTambahKunjungan(){
         $pasiens = Pasien::all();
-        return view('loket/tambah-kunjungan', compact('pasiens'));
+        $polis = Unit::poli()->get();
+        $kamars = Unit::kamar()->get();
+        return view('loket/tambah-kunjungan', compact('pasiens', 'polis', 'kamars'));
     }
 
+    // Fungsi untuk menambahkan kunjungan
     public function tambahKunjungan(Request $request){
         $kunjungan = new Kunjungan();
         $kunjungan->IdPasien = $request->IdPasien;

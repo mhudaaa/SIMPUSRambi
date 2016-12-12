@@ -6,24 +6,35 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Model\Pasien;
 
-class PasienController extends Controller
-{
+class PasienController extends Controller{
     
+    // Menampilkan daftar pasien
     public function index(){
         $pasiens = Pasien::all();
         return view('loket/pasien', compact('pasiens'));
     }
 
+    // Menampilkan rincian data pasien
     public function detailPasien($IdPasien){
         $pasien = Pasien::findOrFail($IdPasien);
         return view('loket/detail-pasien', compact('pasien'));
     }
 
+    // Fungsi cari pasien
+    public function cariPasien(Request $request){
+        $pasien = Pasien::where('NamaPasien', 'like', '%'.$request->NamaPasien.'%')->get();
+        $jmlHasil = $pasien->count();
+        $request->session()->flash('message', 'Menampilkan Data pasien dengan nama = '.$request->NamaPasien.'');
+        return view('loket/cari-pasien', compact('pasien', 'jmlHasil'));
+    }    
+
+    // Menampilkan form ubah data pasien
     public function formUbahPasien($IdPasien){
         $pasien = Pasien::findOrFail($IdPasien);
         return view('loket/ubah-pasien', compact('pasien'));
     }
 
+    // Fungsi ubah data pasien
     public function ubahPasien(Request $request, $id){
         $pasien = Pasien::find($id);
         $pasien->NamaPasien = $request->nama;
@@ -40,10 +51,12 @@ class PasienController extends Controller
         return redirect('/loket/pasien/')->with('message', 'Data Pasien berhasil ubah');
     }
 
+    // Menampilkan form tambah pasien
     public function formTambahPasien(){
         return view('loket/tambah-pasien');
     }
 
+    // Fungsi tambah data pasien
     public function tambahPasien(Request $request){
         $pasien = new Pasien();
         $pasien->NamaPasien = $request->nama;

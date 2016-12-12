@@ -102,18 +102,21 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Agama</label>
-                                                <select class="form-control border-input" name="agama">
-                                                    <option value="0" selected="">Pilih agama</option>
+                                                <select class="form-control border-input selectpicker" name="agama">
+                                                    <option value="0" selected="">- Pilih agama -</option>
                                                     <option value="Islam">Islam</option>
                                                     <option value="Kristen">Kristen</option>
+                                                    <option value="Katolik">Katolik</option>
+                                                    <option value="Hindu">Hindu</option>
+                                                    <option value="Buddha">Buddha</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Jenis Kelamin</label>
-                                                <select class="form-control border-input" name="jenkel">
-                                                    <option value="0" selected="">Pilih Jenis Kelamin</option>
+                                                <select class="form-control border-input selectpicker" name="jenkel">
+                                                    <option value="0" selected="">- Jenkel -</option>
                                                     <option value="L">Laki-laki</option>
                                                     <option value="P">Perempuan</option>
                                                 </select>
@@ -137,8 +140,8 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Jenis Pasien</label>
-                                                <select class="form-control border-input" name="jenisPasien">
-                                                    <option value="0">Pilih Jenis Pasien</option>
+                                                <select class="form-control border-input selectpicker" name="jenisPasien">
+                                                    <option value="0">Jenis Pasien</option>
                                                     <option value="BPJS">BPJS</option>
                                                     <option value="Non-BPJS">Non-BPJS</option>
                                                 </select>

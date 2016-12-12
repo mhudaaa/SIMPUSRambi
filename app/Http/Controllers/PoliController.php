@@ -21,13 +21,23 @@ class PoliController extends Controller{
         return view('/poli/beranda', compact('antrians', 'pasiens'));
     }
 
+    // Menampilkan daftar antrian pasien (pasien yang belum ditangani)
     public function index(){
         $antrians   = Kunjungan::belumDitangani()->get();
         $pasiens    = Pasien::all();
         return view('/poli/antrian', compact('antrians', 'pasiens'));
     }
 
-    
+    // Fungsi untuk mencari data kunjungan berdasarkan nama pasien
+    public function cariPasien(Request $request){
+        $antrians = Kunjungan::whereHas('pasien', function($query) use ($request) {
+            $query->where('NamaPasien', 'like', '%'.$request->NamaPasien.'%');
+        })->belumDitangani()->get();
+        $jmlHasil = $antrians->count();
+        $request->session()->flash('message', 'Menampilkan Data kunjungan dengan nama pasien = '.$request->NamaPasien.'');
+        return view('poli/cari-antrian', compact('antrians', 'jmlHasil'));
+    }  
+
     //tambah pemeriksaan 
     public function tambahPemeriksaan($id){
         $detailKunjungan = Kunjungan::findOrFail($id);
@@ -107,6 +117,16 @@ class PoliController extends Controller{
         $kunjungan->update();
         return redirect('/poli')->with('message', 'Selesai. Data pemeriksaan telah dimasukkan ke Rekap Pemeriksaan');
     }
+
+    // Cari data pasien di rekap pemeriksaan
+    public function cariRekap(Request $request){
+        $pemeriksaans = Kunjungan::whereHas('pasien', function($query) use ($request) {
+            $query->where('NamaPasien', 'like', '%'.$request->NamaPasien.'%');
+        })->sudahDitangani()->get();
+        $jmlHasil = $pemeriksaans->count();
+        $request->session()->flash('message', 'Menampilkan Data pemeriksaan dengan nama pasien = '.$request->NamaPasien.'');
+        return view('poli/cari-rekap', compact('pemeriksaans', 'jmlHasil'));
+    }  
 
 
 }

@@ -55,6 +55,21 @@
 
                 <div class="row">
                     <div class="col-md-12">
+                        @if(Session::has('message'))
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="alert alert-success fade in">
+                                        <button type="button" aria-hidden="true" data-dismiss="alert" aria-label="close" class="close">×</button>
+                                        <span>{{ Session::get('message') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="header">
                                 <div class="row">
@@ -62,10 +77,11 @@
                                         <h4 class="title">Data Pasien</h4>  
                                         <p class="category">Jumat, 25 November 2016</p>
                                     </div>
-                                    <form method="post" action="">
+                                    <form method="post" action="/loket/pasien/cari/">
+                                        {{ csrf_field() }}
                                         <div class="col-sm-3 text-right">
                                             <div class="form-group">
-                                                <input type="text" name="cari-pasien" placeholder="Masukkan nama pasien" class="form-control border-input">
+                                                <input type="text" name="NamaPasien" placeholder="Masukkan nama pasien" class="form-control border-input">
                                             </div>
                                         </div>
                                         <div class="col-sm-1 text-right">

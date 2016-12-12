@@ -20,6 +20,17 @@
                         </div>
                     </div>
 
+                    @if(Session::has('message'))
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-success fade in">
+                                <button type="button" aria-hidden="true" data-dismiss="alert" aria-label="close" class="close">×</button>
+                                <span>{{ Session::get('message') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -60,27 +71,34 @@
                                                         <th width="80px">Aksi</th>
                                                     </thead>
                                                     <tbody>
-                                                    
-                                                        @foreach($pemeriksaans as $no=>$pemeriksaan)        
-                                                        <tr>
-                                                            <td width="40px">{{ ++$no }}</td>
-                                                            <td width="120px">{{ date('d M Y', strtotime($pemeriksaan->created_at)) }}</td>
-                                                            <td>{{ $pemeriksaan->pasien->NamaPasien }}</td>
-                                                            @if($pemeriksaan->IdDiagnosa != 0)
-                                                            <td>{{ $pemeriksaan->diagnosa->Diagnosa }}</td>
-                                                            <td>Dokter</td>
-                                                            @else
-                                                            <td><i class="text-danger">Data Diagnosa belum dimasukkan</i></td>
-                                                            <td>-</td>
-                                                            @endif
-                                                            <td>
+                                                        @if($jmlHasil > 0)
+                                                            @foreach($pemeriksaans as $no=>$pemeriksaan)        
+                                                            <tr>
+                                                                <td width="40px">{{ ++$no }}</td>
+                                                                <td width="120px">{{ date('d M Y', strtotime($pemeriksaan->created_at)) }}</td>
+                                                                <td>{{ $pemeriksaan->pasien->NamaPasien }}</td>
+                                                                @if($pemeriksaan->IdDiagnosa != 0)
+                                                                <td>{{ $pemeriksaan->diagnosa->Diagnosa }}</td>
+                                                                <td>Dokter</td>
+                                                                @else
+                                                                <td><i class="text-danger">Data Diagnosa belum dimasukkan</i></td>
+                                                                <td>-</td>
+                                                                @endif
+                                                                <td>
 
-                                                                <a href="/poli/rekap/detail/{{ $pemeriksaan->IdKunjungan }}"><button class="btn btn-success">Detail</button></a>
-                                                            </td>
-                                                        </tr>
-                                                        @endforeach
-                                                        
-                                                        
+                                                                    <a href="/poli/rekap/detail/{{ $pemeriksaan->IdKunjungan }}"><button class="btn btn-success">Detail</button></a>
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                            @else
+                                                            <tr>
+                                                                <td colspan="6">
+                                                                    <p class="text-center text-danger">
+                                                                        <br><i>Pasien tidak ditemukan</i>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
                                                     </tbody>
                                                 </table>
                                             <!-- </div> -->

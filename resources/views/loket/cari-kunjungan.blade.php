@@ -126,7 +126,7 @@
                                
                             </div>
                         </div>
-                                <a href="/loket/kunjungan/tambah-kunjungan"><button class="btn btn-success bold btn-fill"><i class="ti-plus"></i> Tambah data kunjungan</button></a>
+                        <a href="/loket/kunjungan/tambah-kunjungan"><button class="btn btn-success bold btn-fill"><i class="ti-plus"></i> Tambah data kunjungan</button></a>
                     </div>
                    
                 </div>

@@ -32,6 +32,8 @@ Route::get('/loket/pasien/ubah/{IdPasien}', 'PasienController@formUbahPasien');
 Route::post('/loket/pasien/ubah-pasien/{IdPasien}', 'PasienController@ubahPasien');
 Route::get('/loket/pasien/tambah-pasien', 'PasienController@formTambahPasien');
 Route::post('/loket/pasien/tambah', 'PasienController@tambahPasien');
+Route::post('/loket/pasien/cari', 'PasienController@cariPasien');
+
 // Kunjungan
 Route::get('/loket/kunjungan','KunjunganController@index');
 Route::get('/loket/kunjungan/detail/{IdKunjungan}', 'KunjunganController@detailKunjungan');
@@ -39,7 +41,7 @@ Route::get('/loket/kunjungan/ubah/{IdKunjungan}', 'KunjunganController@formUbahK
 Route::post('/loket/kunjungan/ubah-kunjungan/{IdKunjungan}', 'KunjunganController@ubahKunjungan');
 Route::get('/loket/kunjungan/tambah-kunjungan', 'KunjunganController@formTambahKunjungan');
 Route::post('/loket/kunjungan/tambah', 'KunjunganController@tambahKunjungan');
-
+Route::post('/loket/kunjungan/cari', 'KunjunganController@cariKunjungan');
 
 // POLI --------------------------------------------------------------------------
 // Pemeriksaan
@@ -50,7 +52,7 @@ Route::get('/poli/tambah-pemeriksaan', function () {
     return view('poli.tambah-pemeriksaan');
 });
 Route::get('/poli/submit/pemeriksaan/{id}', 'PoliController@ubahStatusPemeriksaan');
-
+Route::post('/poli/cari/pasien', 'PoliController@cariPasien');
 Route::post('/poli/tambah/add', 'PoliController@buatPemeriksaan');
 
 // Tambah data pemeriksaan
@@ -62,6 +64,7 @@ Route::get('/poli/hapus/obat/{resep}/{obat}', 'PoliController@hapusObat');
 
 // Rekap pemeriksaan
 Route::get('/poli/rekap', 'PoliController@rekapPemeriksaan');
+Route::post('/poli/rekap/cari/', 'PoliController@cariRekap');
 Route::get('/poli/rekap/detail/{id}', 'PoliController@detailPemeriksaan');
 
 

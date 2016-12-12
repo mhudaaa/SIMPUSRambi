@@ -5,7 +5,7 @@
 
 <div class="wrapper">
  
-    @include('loket/template/sidebar-1')
+    @include('loket/template/sidebar-2')
 
     <div class="main-panel">
 
@@ -18,7 +18,7 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Loket - Kunjungan</a>
+                    <a class="navbar-brand" href="#">Loket - Pasien</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -47,7 +47,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="content">
-                                <h6>Beranda / <span class="active">Kunjungan</span></h6>
+                                <h6>Beranda / <span class="active">Pasien</span></h6>
                             </div>
                         </div>
                     </div>
@@ -74,10 +74,10 @@
                             <div class="header">
                                 <div class="row">
                                     <div class="col-sm-8">
-                                        <h4 class="title">Data Kunjungan</h4>  
-                                        <p class="category">{{ date("l, d M Y") }}</p>
+                                        <h4 class="title">Data Pasien</h4>  
+                                        <p class="category">Jumat, 25 November 2016</p>
                                     </div>
-                                    <form method="post" action="/loket/kunjungan/cari/">
+                                    <form method="post" action="/loket/pasien/cari/">
                                         {{ csrf_field() }}
                                         <div class="col-sm-3 text-right">
                                             <div class="form-group">
@@ -92,7 +92,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <br>
+                            <!-- <br> -->
                             <div class="content table-responsive ">
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -101,24 +101,35 @@
                                                 <th width="30px;">No.</th>
                                                 <th>Nama</th>
                                                 <th>Alamat</th>
-                                                <th>Keluhan</th>
-                                                <th>Poli Tujuan</th>
-                                                <th width="50px;" >Aksi</th>
+                                                <th>Jenis Kelamin</th>
+                                                <th>Jenis Pasien</th>
+                                                <th width="190px;" >Aksi</th>
                                             </thead>
-                                            <tbody> 
-                                                <?php $no=1; ?>
-                                                @foreach($kunjungans as $kunjungan)
-                                                <tr>
-                                                    <td>{{$no++}}</td>
-                                                    <td>{{$kunjungan->pasien->NamaPasien}}</td>
-                                                    <td>{{$kunjungan->pasien->Alamat}}</td>
-                                                    <td>{{$kunjungan->Keluhan}}</td>
-                                                    <td>{{$kunjungan->unit->NamaUnit}}</td>
-                                                    <td>
-                                                        <a href="/loket/kunjungan/detail/{{$kunjungan->IdKunjungan}}"><button class="btn btn-success bold">Detail</button></a>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
+                                            <tbody>
+                                                @if($jmlHasil > 0)
+                                                    @foreach($pasien as $no=>$pasien)
+                                                    <tr>
+                                                        <td>{{++$no}}</td>
+                                                        <td>{{$pasien->NamaPasien}}</td>
+                                                        <td>{{$pasien->Alamat}}</td>
+                                                        <td>{{$pasien->JenisKelamin}}</td>
+                                                        <td>{{$pasien->JenisPasien}}</td>
+                                                        <td>
+                                                            <a href="/loket/pasien/detail/{{$pasien->IdPasien}}"><button class="btn btn-success bold">Detail</button></a>
+
+                                                            <a href="/loket/pasien/ubah/{{$pasien->IdPasien}}"><button class="btn btn-warning bold">Ubah</button></a>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="6">
+                                                            <p class="text-center text-danger">
+                                                                <br><i>Pasien tidak ditemukan</i>
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
@@ -126,7 +137,7 @@
                                
                             </div>
                         </div>
-                                <a href="/loket/kunjungan/tambah-kunjungan"><button class="btn btn-success bold btn-fill"><i class="ti-plus"></i> Tambah data kunjungan</button></a>
+                                <a href="/loket/pasien/tambah-pasien"><button class="btn btn-success bold btn-fill"><i class="ti-plus"></i> Tambah data pasien</button></a>
                     </div>
                    
                 </div>

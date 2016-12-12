@@ -75,10 +75,11 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="pasien">Pasien</label>
-                                                <select id="pasien" class="form-control border-input selectpicker" name="IdPasien" data-live-search="true" required="">
+                                                <select id="pasien" data-size="7" class="form-control border-input selectpicker" data-live-search="true" name="IdPasien" required="">
                                                     <option data-tokens="" value="">- Pilih Pasien -</option>
+                                                    <option data-divider="true"></option>
                                                     @foreach($pasiens as $pasien)
-                                                    <option data-tokens="{{ $pasien->IdPasien }}" value="{{ $pasien->IdPasien }}">{{ $pasien->IdPasien }} - {{ $pasien->NamaPasien }}</option>
+                                                    <option data-subtext="{{ $pasien->IdPasien }}" data-tokens="{{ $pasien->IdPasien }}" value="{{ $pasien->IdPasien }}">{{ $pasien->NamaPasien }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -86,8 +87,9 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="JenisPerawatan">Jenis Perawatan</label>
-                                                <select name="JenisPerawatan" class="form-control border-input" name="JenisPerawatan">
-                                                    <option value="" disabled selected>Pilih Jenis Perawatan</option>
+                                                <select name="JenisPerawatan" class="form-control border-input selectpicker" name="JenisPerawatan">
+                                                    <option value="" disabled selected>- Pilih Jenis Perawatan -</option>
+                                                    <option data-divider="true"></option>
                                                     <option value="Rawat Jalan">Rawat Jalan</option>
                                                     <option value="Rawat Inap">Rawat Inap</option>
                                                 </select>
@@ -103,44 +105,30 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-offset-6 col-md-6">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="UnitTujuan">Unit Tujuan</label>
-                                                <select id="UnitTujuan" class="form-control border-input" name="UnitTujuan">
-                                                    <option value="" disabled selected>Pilih Poli Tujuan</option>
-                                                    <option value="1">Poli Umum</option>
-                                                    <option value="2">Poli Gigi</option>
-                                                    <option value="3">Poli KIA</option>
-                                                    <option value="4">Rawat Inap</option>          
+                                                <select id="UnitTujuan" class="form-control border-input selectpicker" name="UnitTujuan">
+                                                    <option value="" disabled selected>- Pilih Poli Tujuan -</option>
+                                                    <option data-divider="true"></option>
+                                                    @foreach($polis as $poli)
+                                                    <option data-tokens="{{ $poli->NamaUnit }}" value="{{ $poli->IdUnit }}">{{ $poli->NamaUnit }}</option>
+                                                    @endforeach 
                                                 </select>
                                             </div>
                                         </div>
-                                        <!-- <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Bangsal / Kamar</label>
-                                                <select class="form-control border-input" name="IdKamar">
-                                                    <option value="" disabled selected>Pilih Kamar</option>
-                                                    <option value="1">Kamar 1</option>
-                                                    <option value="2">Kamar 2</option>
-                                                    <option value="3">Kamar 3</option>
-                                                </select>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-offset-6 col-md-6">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="CaraBayar">Cara Bayar</label>
-                                                <select id="CaraBayar" class="form-control border-input" name="CaraBayar">
-                                                    <option value="" disabled selected>Pilih Cara Bayar</option>
+                                                <select id="CaraBayar" class="form-control border-input selectpicker" name="CaraBayar">
+                                                    <option value="" disabled selected>- Pilih Cara Bayar -</option>
+                                                    <option data-divider="true"></option>
                                                     <option value="1">Non</option>
                                                     <option value="2">BPJS</option>     
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-
-
                                     <div class="footer text-right">
                                         <hr>
                                         <div class="row">
