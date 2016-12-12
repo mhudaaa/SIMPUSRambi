@@ -84,7 +84,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="content">
-                                <h6>Beranda / <span class="text-primary">Rawat Inap</span></h6>
+                                <h6>Beranda / Rawat Inap /<span class="text-primary">Rekap Rawat Inap</span></h6>
                             </div>
                         </div>
                     </div>
@@ -122,6 +122,7 @@
                                                     <th width="30px;">No.</th>
                                                     <th>Nama</th>
                                                     <th>Tanggal Masuk</th>
+                                                    <th>Tanggal Keluar</th>
                                                     <th width="190px;">Aksi</th>
                                                 </thead>
                                                 <tbody>
@@ -130,8 +131,9 @@
                                                         <td>{{ ++$no }}</td>
                                                         <td>{{ $rawatinap->pasien->NamaPasien }}</td>
                                                         <td>{{ $rawatinap->TanggalMasuk }}</td>
+                                                        <td>{{ $rawatinap->TanggalKeluar }}</td>
                                                         <td>
-                                                            <a href="/rawatinap/pemeriksaan/{{ $rawatinap->IdRawatInap }}"><button class="btn btn-primary bold">Periksa</button></a>
+                                                            <a href="/rawatinap/rekap/{{ $rawatinap->IdRawatInap }}"><button class="btn btn-primary bold">Detail</button></a>
                                                         </td>
                                                     </tr>
                                                     @endforeach
@@ -143,7 +145,7 @@
                                
                             </div>
                         </div>
-                        <a href="rawatinap/rekap"><button class="btn btn-primary bold btn-fill"><i class="ti-receipt"></i> Rekap Rawat Inap</button></a>
+                        <a href="rekap-rawatinap.php"><button class="btn btn-primary bold btn-fill"><i class="ti-receipt"></i> Rekap Rawat Inap</button></a>
                   
                     </div>
                    
