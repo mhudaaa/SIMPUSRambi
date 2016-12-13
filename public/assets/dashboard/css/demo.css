@@ -133,3 +133,19 @@
 .bootstrap-select.btn-group .dropdown-menu, .bs-searchbox input {
 	border: 1px solid #CCC5B9!important;
 }
+.alert-dismissible .close, .alert-dismissible .close {
+	position: relative;
+    top: -2px;
+    right: 0px!important;
+    color: inherit;
+}
+
+.dropdown-menu {
+	display: none;
+}
+.bootstrap-select.open > .dropdown-menu{
+	/*visibility: visible!important;*/
+}
+.card-soft{
+	background: #fafafa;
+}

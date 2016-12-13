@@ -52,8 +52,16 @@ class LoginController extends Controller
          if (Auth::attempt($credential)) {
             // dd(Auth::check());
             if (Auth::user()->Jabatan == "poliumum") {
-                return redirect()->intended('/poli');
+                return redirect('/poli');
+            }elseif (Auth::user()->Jabatan == "loket") {
+                return redirect('/loket');
             }
+        } else{
+            return back()
+                ->withInput($request->only('username'))
+                ->withErrors([
+                    'username' => 'username atau password salah',
+                ]);
         }
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Model\Pasien;
+use PDF;
 
 class PasienController extends Controller{
     
@@ -71,6 +72,27 @@ class PasienController extends Controller{
         $pasien->NoBpjs = $request->noBpjs;
         $pasien->save();
         return redirect('/loket/pasien')->with('message', 'Data Pasien berhasil ditambahkan.');
+    }
+
+    public function kartuPasien(Request $request, $IdPasien){
+        $pasien = Pasien::findOrFail($IdPasien);
+        // view()->share('pasien',$pasien);
+        // if($request->has('download')){
+            $pdf = PDF::loadView('loket/kartu-pasien', compact('pasien'));
+            return $pdf->stream();
+            // return $pdf->download('kartu-pasien.pdf');
+        // }
+        // return view('loket/kartu-pasien', compact('pasien'));
+    }
+
+    public function htmltopdfview(Request $request){
+        $products = Pasien::all();
+        view()->share('products',$products);
+        if($request->has('download')){
+            $pdf = PDF::loadView('htmltopdfview');
+            return $pdf->download('htmltopdfview');
+        }
+        return view('htmltopdfview');
     }
 
 }

@@ -7,12 +7,23 @@ use App\Http\Requests;
 use App\Model\Kunjungan;
 use App\Model\Unit;
 use App\Model\Pasien;
+use Auth;
 
 
 class KunjunganController extends Controller{
 
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
+    public function home(){
+        if (Auth::user()->Jabatan != "loket") abort(502);
+        return view('loket/home-loket');
+    }
+
     // Menampilkan daftar kunjungan
     public function index(){
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
         $kunjungans = Kunjungan::belumDitangani()->orderBy('created_at', 'desc')->get();
         $unit = Unit::all();
         return view('loket/kunjungan', compact('kunjungans','unit'));

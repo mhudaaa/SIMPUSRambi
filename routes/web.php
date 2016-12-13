@@ -22,9 +22,7 @@ Route::get('/', function () {
 });
 
 // LOKET ---------------------------------------------------------------------------
-Route::get('/loket', function () {
-    return view('loket/home-loket');
-});
+Route::get('/loket', 'KunjunganController@home');
 //Pasien
 Route::get('/loket/pasien', 'PasienController@index');
 Route::get('/loket/pasien/detail/{IdPasien}', 'PasienController@detailPasien');
@@ -33,6 +31,11 @@ Route::post('/loket/pasien/ubah-pasien/{IdPasien}', 'PasienController@ubahPasien
 Route::get('/loket/pasien/tambah-pasien', 'PasienController@formTambahPasien');
 Route::post('/loket/pasien/tambah', 'PasienController@tambahPasien');
 Route::post('/loket/pasien/cari', 'PasienController@cariPasien');
+// Route::get('/loket/pasien/kartu/{IdPasien}', 'PasienController@kartuPasien');
+Route::get('/loket/pasien/kartu/{IdPasien}', array(
+	'as'=>'kartu',
+	'uses'=>'PasienController@kartuPasien'
+));
 
 // Kunjungan
 Route::get('/loket/kunjungan','KunjunganController@index');
@@ -67,4 +70,6 @@ Route::get('/poli/rekap', 'PoliController@rekapPemeriksaan');
 Route::post('/poli/rekap/cari/', 'PoliController@cariRekap');
 Route::get('/poli/rekap/detail/{id}', 'PoliController@detailPemeriksaan');
 
+// PDF
+Route::get('/pdf',array('as'=>'htmltopdfview','uses'=>'PoliController@htmltopdfview'));
 

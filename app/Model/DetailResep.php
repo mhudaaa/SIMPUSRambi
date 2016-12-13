@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Resep extends Model{
+class DetailResep extends Model{
     protected $table = 'tb_detail_resep';
     protected $primaryKey = 'idDetailResep';
 

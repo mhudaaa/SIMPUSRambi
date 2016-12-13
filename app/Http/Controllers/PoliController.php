@@ -11,11 +11,18 @@ use App\Model\Rujukan;
 use App\Model\Obat;
 use App\Model\Resep;
 use App\Model\Pegawai;
+use PDF;
 use Auth;
 
 class PoliController extends Controller{
 
+    public function __construct(){
+        $this->middleware('auth');
+        // $this->middleware('auth', except=>['index', ['cariPasien']);
+    }
+
     public function home(){
+        if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         $antrians   = Kunjungan::belumDitangani()->get();
         $pasiens    = Pasien::all();
         return view('/poli/beranda', compact('antrians', 'pasiens'));
@@ -23,6 +30,7 @@ class PoliController extends Controller{
 
     // Menampilkan daftar antrian pasien (pasien yang belum ditangani)
     public function index(){
+        if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         $antrians   = Kunjungan::belumDitangani()->get();
         $pasiens    = Pasien::all();
         return view('/poli/antrian', compact('antrians', 'pasiens'));
@@ -30,6 +38,7 @@ class PoliController extends Controller{
 
     // Fungsi untuk mencari data kunjungan berdasarkan nama pasien
     public function cariPasien(Request $request){
+        if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         $antrians = Kunjungan::whereHas('pasien', function($query) use ($request) {
             $query->where('NamaPasien', 'like', '%'.$request->NamaPasien.'%');
         })->belumDitangani()->get();
@@ -40,6 +49,7 @@ class PoliController extends Controller{
 
     //tambah pemeriksaan 
     public function tambahPemeriksaan($id){
+        if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         $detailKunjungan = Kunjungan::findOrFail($id);
         $obats           = Obat::all();
         $dokters         = Pegawai::dokter()->get();
@@ -49,6 +59,7 @@ class PoliController extends Controller{
 
     // tambah diagnosa
     public function tambahDiagnosa(Request $request){
+        if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         $diagnosa = Diagnosa::create($request->all());
         $kunjungan = Kunjungan::find($request->IdKunjungan);
         $kunjungan->IdDiagnosa = $diagnosa->IdDiagnosa;
@@ -58,6 +69,7 @@ class PoliController extends Controller{
 
     // tambah rujukan
     public function tambahRujukan(Request $request){
+        if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         $rujukan = Rujukan::create($request->all());
         $kunjungan = Kunjungan::find($request->IdKunjungan);
         $kunjungan->IdRujukan = $rujukan->IdRujukan;
@@ -67,6 +79,7 @@ class PoliController extends Controller{
     
     // Tambah obat
     public function tambahObat(Request $request){
+        if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         $kunjungan = Kunjungan::find($request->IdKunjungan);
         if ($kunjungan->IdResep == 0) {
             $data = $request->all();
@@ -84,6 +97,7 @@ class PoliController extends Controller{
 
     // Tambah catatan resep
     public function tambahCatatanResep(Request $request){
+        if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         $kunjungan = Kunjungan::find($request->IdKunjungan);
         $resep = Resep::find($request->IdResep);
         $resep->Catatan = $request->Catatan;
@@ -93,6 +107,7 @@ class PoliController extends Controller{
 
     // Hapus obat
     public function hapusObat($resep, $obat){
+        if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         $resep = Resep::find($resep);
         $resep->obat()->detach($obat);
         return redirect('/poli/tambah/'.$resep->kunjungan->IdKunjungan)->with('message', 'Obat berhasil dihapus dari daftar resep');
@@ -100,18 +115,21 @@ class PoliController extends Controller{
 
     // Menampilkan daftar rekap pemeriksaan
     public function rekapPemeriksaan(){
+        if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         $pemeriksaans = Kunjungan::sudahDitangani()->get();
         return view('/poli/rekap-pemeriksaan', compact('pemeriksaans'));
     }
 
     // Menampilkan detail data pemeriksaan
     public function detailPemeriksaan($id){
+        if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         $detailPemeriksaan = Kunjungan::findOrFail($id);
         return view('/poli/detail-pemeriksaan', compact('detailPemeriksaan'));
     }
 
     // Update status kunjungan
     public function ubahStatusPemeriksaan($id){
+        if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         $kunjungan = Kunjungan::findOrFail($id);
         $kunjungan->status = 1;
         $kunjungan->update();
@@ -120,6 +138,7 @@ class PoliController extends Controller{
 
     // Cari data pasien di rekap pemeriksaan
     public function cariRekap(Request $request){
+        if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         $pemeriksaans = Kunjungan::whereHas('pasien', function($query) use ($request) {
             $query->where('NamaPasien', 'like', '%'.$request->NamaPasien.'%');
         })->sudahDitangani()->get();
@@ -128,5 +147,15 @@ class PoliController extends Controller{
         return view('poli/cari-rekap', compact('pemeriksaans', 'jmlHasil'));
     }  
 
+
+    public function htmltopdfview(Request $request){
+        $products = Pasien::all();
+        view()->share('products',$products);
+        if($request->has('download')){
+            $pdf = PDF::loadView('htmltopdfview');
+            return $pdf->download('htmltopdfview');
+        }
+        return view('htmltopdfview');
+    }
 
 }
