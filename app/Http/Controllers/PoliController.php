@@ -77,14 +77,16 @@ class PoliController extends Controller{
         if (strpos(Auth::user()->Jabatan, "poli") === false) abort(502);
         if (Auth::user()->Jabatan == "poliumum") {
             $poliTujuan = "Umum";
+            $dokters = Pegawai::dokterUmum()->get();
         } elseif (Auth::user()->Jabatan == "poligigi") {
             $poliTujuan = "Gigi";
+            $dokters = Pegawai::dokterGigi()->get();
         } elseif (Auth::user()->Jabatan == "polikia") {
             $poliTujuan = "Kia";
+            $dokters = Pegawai::dokterKia()->get();
         }
         $detailKunjungan = Kunjungan::findOrFail($id);
         $obats           = Obat::all();
-        $dokters         = Pegawai::dokter()->get();
         return view('/poli/tambah-pemeriksaan', compact('detailKunjungan', 'obats', 'dokters', 'poliTujuan'));
     }
 
@@ -207,5 +209,10 @@ class PoliController extends Controller{
         $request->session()->flash('message', 'Menampilkan Data pemeriksaan dengan nama pasien = '.$request->NamaPasien.'');
         return view('poli/cari-rekap', compact('pemeriksaans', 'jmlHasil', 'poliTujuan'));
     }  
+
+    public function cetakRujukan($IdRujukan){
+        $rujukan = Rujukan::findOrFail($IdRujukan);
+        return view('poli/rujukan', compact('rujukan'));
+    }
 
 }

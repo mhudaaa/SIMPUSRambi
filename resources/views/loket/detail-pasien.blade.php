@@ -9,36 +9,7 @@
 
     <div class="main-panel">
 
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar bar1"></span>
-                        <span class="icon-bar bar2"></span>
-                        <span class="icon-bar bar3"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Loket - Pasien</a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="ti-settings"></i>
-                                <p>Pengaturan akun</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="ti-power-off"></i>
-                                <p>Keluar</p>
-                            </a>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
-        </nav>
+        @include('loket/template/navbar')
         
         <div class="content">
             <div class="container-fluid">
@@ -61,7 +32,7 @@
                                         <h4 class="title">Detail Pasien</h4>  
                                     </div>
                                     <div class="col-sm-4 text-right">
-                                        <h6 class="bold">No Pasien : <span class="text-success bold">{{$pasien->IdPasien}}</span></h6>
+                                        <h6 class="bold">No Pasien : 1424101010<span class="text-success bold">{{$pasien->IdPasien}}</span></h6>
                                     </div>
                                 </div>
                             </div>
@@ -139,8 +110,8 @@
                                 </table>
                             </div>
                         </div>
-
-                        <a href="/loket/pasien"><button class="btn btn-warning btn-fill">Kembali</button></a>
+                        <a href="/loket/pasien/kartu/{{ $pasien->IdPasien }}" target="_blank"><button class="btn btn-info btn-fill"><i class="ti ti-printer"></i> Cetak kartu pasien</button></a>
+                        <a href="/loket/pasien"><button class="btn btn-warning btn-fill"><i class="ti ti-close"></i> Kembali</button></a>
                     </div>
                 </div>
             </div>

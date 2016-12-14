@@ -82,14 +82,9 @@ class PasienController extends Controller{
         return redirect('/loket/pasien')->with('message', 'Data Pasien berhasil ditambahkan.');
     }
 
-    public function htmltopdfview(Request $request){
-        $products = Pasien::all();
-        view()->share('products',$products);
-        if($request->has('download')){
-            $pdf = PDF::loadView('htmltopdfview');
-            return $pdf->download('htmltopdfview');
-        }
-        return view('htmltopdfview');
+    public function kartuPasien($IdPasien){
+        $pasien = Pasien::findOrFail($IdPasien);
+        return view('loket/kartu-pasien', compact('pasien'));
     }
 
 }

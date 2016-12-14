@@ -59,6 +59,10 @@ class LoginController extends Controller
                 return redirect('/loket');
             }elseif (Auth::user()->Jabatan == "apoteker") {
                 return redirect('/apoteker');
+            }elseif (Auth::user()->Jabatan == "petugaslab") {
+                return redirect('/lab');
+            }elseif (Auth::user()->Jabatan == "rawatinap") {
+                return redirect('/rawatinap');
             }
         } else{
             return back()

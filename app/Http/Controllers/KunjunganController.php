@@ -85,7 +85,7 @@ class KunjunganController extends Controller{
             'IdPasien' => 'required',
             'JenisPerawatan' => 'required',
             'UnitTujuan' => 'required',
-            'Keluhan' => 'required|alpha_dash',
+            'Keluhan' => 'required',
         ]);
 
         $kunjungan = new Kunjungan();

@@ -15,8 +15,14 @@ class Pegawai extends Authenticatable{
     public $increment = false;
 
     // Menampilkan dokter
-	public function scopeDokter($query) {
-		return $query->where('Jabatan', 'Dokter');
+	public function scopeDokterUmum($query) {
+		return $query->where('Jabatan', 'dokterumum');
+	}
+	public function scopeDokterKia($query) {
+		return $query->where('Jabatan', 'dokterkia');
+	}
+	public function scopeDokterGigi($query) {
+		return $query->where('Jabatan', 'doktergigi');
 	}
 
 	public function scopePetugasLab($query) {

@@ -121,6 +121,7 @@
                                                     <div class="row">
                                                         <h6 class="subtitle text-primary">Data Rujukan</h6>
                                                         <div class="col-sm-12">
+                                                            @if($detailPemeriksaan->IdRujukan != 0)
                                                             <table class="table tbl-detail">
                                                                 <tr>
                                                                     <td width="150px;">Tujuan</td>
@@ -134,8 +135,16 @@
                                                                     <td>Catatan</td>
                                                                     <td>: {{ $detailPemeriksaan->rujukan->Catatan }}</td>
                                                                 </tr>
-                                                                
+                                                                <tr>
+                                                                    <td colspan="2">
+                                                                        <br><a href=""><button class="btn btn-info btn-fill">Cetak rujukan</button></a>
+                                                                    </td>
+                                                                </tr>
                                                             </table>
+                                                            @else
+                                                            <hr>
+                                                            <i class="text-danger">Data rujukan tidak ada</i>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -144,26 +153,28 @@
                                                     <div class="row">
                                                         <h6 class="subtitle text-primary">Data Resep</h6>
                                                         <div class="col-sm-12">
-                                                            @if($detailPemeriksaan->IdResep != 0)
-                                                            <table class="table tbl-detail">
-                                                                <thead>
-                                                                    <th width="20px">No</th>
-                                                                    <th>Nama Obat</th>
-                                                                    <th>Jumlah</th>
-                                                                    <th>Dosis</th>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach($detailPemeriksaan->resep->obat as $no=>$obat)
+                                                            <table class="table table-striped">
+                                                            <thead>
+                                                                <th width="60px;">No</th>
+                                                                <th>Nama Obat</th>
+                                                                <th>Jumlah</th>
+                                                                <th>Dosis</th>
+                                                                <th width="100px;">Aksi</th>
+                                                            </thead>
+                                                            <tbody>
+                                                                @if($detailPemeriksaan->IdResep != 0)
+                                                                @foreach($detailPemeriksaan->resep->obat as $no=>$obat)
                                                                     <tr>
-                                                                        <td class="text-center">{{ ++$no }}</td>
+                                                                        <td>{{ ++$no }}</td>
                                                                         <td>{{ $obat->NamaObat }}</td>
                                                                         <td>{{ $obat->pivot->Jumlah }} {{ $obat->JenisObat }}</td>
                                                                         <td>{{ $obat->pivot->Dosis }}</td>
+                                                                        <td><a href="{{ url('/poli/hapus/obat/'.$detailPemeriksaan->resep->IdResep.'/'.$obat->IdObat) }}"><button class="btn btn-danger">Hapus</button></a></td>
                                                                     </tr>
                                                                     @endforeach
-                                                                </tbody>
+                                                                @endif
+                                                            </tbody>
                                                             </table>
-                                                            @endif
                                                             <hr>
                                                             <div class="konten catatan bg-red">
                                                                 

@@ -32,10 +32,7 @@ Route::get('/loket/pasien/tambah-pasien', 'PasienController@formTambahPasien');
 Route::post('/loket/pasien/tambah', 'PasienController@tambahPasien');
 Route::post('/loket/pasien/cari', 'PasienController@cariPasien');
 // Route::get('/loket/pasien/kartu/{IdPasien}', 'PasienController@kartuPasien');
-Route::get('/loket/pasien/kartu/{IdPasien}', array(
-	'as'=>'kartu',
-	'uses'=>'PasienController@kartuPasien'
-));
+Route::get('/loket/pasien/kartu/{id}', 'PasienController@kartuPasien');
 
 // Kunjungan
 Route::get('/loket/kunjungan','KunjunganController@index');
@@ -59,6 +56,7 @@ Route::get('/poli/tambah-pemeriksaan', function () {
 Route::get('/poli/submit/pemeriksaan/{id}', 'PoliController@ubahStatusPemeriksaan');
 Route::post('/poli/cari/pasien', 'PoliController@cariPasien');
 Route::post('/poli/tambah/add', 'PoliController@buatPemeriksaan');
+Route::get('/poli/rujukan/{id}', 'PoliController@cetakRujukan');
 
 // Tambah data pemeriksaan
 Route::post('/poli/tambah/diagnosa', 'PoliController@tambahDiagnosa');
@@ -71,6 +69,7 @@ Route::get('/poli/hapus/obat/{resep}/{obat}', 'PoliController@hapusObat');
 Route::get('/poli/rekap', 'PoliController@rekapPemeriksaan');
 Route::post('/poli/rekap/cari/', 'PoliController@cariRekap');
 Route::get('/poli/rekap/detail/{id}', 'PoliController@detailPemeriksaan');
+
 
 
 // DOKTER --------------------------------------------------------------------------
@@ -101,5 +100,21 @@ Route::get('/lab/laboraturium', 'LaboraturiumController@lab');
 Route::get('/lab/tambah-lab', 'LaboraturiumController@formTambahLab');
 Route::post('/lab/laboraturium', 'LaboraturiumController@tambahLab');
 Route::get('/lab/detail/lab/{id}', 'LaboraturiumController@detailLab');
+
+Route::get('/rawatinap/pemeriksaan/detail', 'RawatInapController@detailPemeriksaan');
+Route::post('/rawatinap/tambah/pemeriksaan', 'RawatInapController@tambahPemeriksaan');
+Route::post('/rawatinap/tambah/rujukan', 'RawatInapController@tambahRujukan');
+Route::post('/rawatinap/tambah/obat', 'RawatInapController@tambahObat');
+Route::post('/rawatinap/tambah/catatanResep', 'RawatInapController@tambahCatatanResep');
+Route::get('/rawatinap/hapus/obat/{resep}/{obat}', 'RawatInapController@hapusObat');
+
+// RAWATINAP --------------------------------------------------------------------------
+Route::get('/rawatinap' , 'RawatInapController@beranda');
+Route::get('/rawatinap/pemeriksaan' , 'RawatInapController@index');
+Route::get('/rawatinap/rekap' , 'RawatInapController@rekapRawatInap');
+Route::get('rawatinap/pemeriksaan/{id}','RawatInapController@tambahPemeriksaanRawatInap');
+Route::get('/rawatinap/tambah-rawatinap', function () {
+    return view('rawatinap.tambah-rawatinap');
+});
 
 
