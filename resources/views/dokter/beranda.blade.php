@@ -1,12 +1,12 @@
-@include('poli/template/header')
+@include('dokter/template/header')
 <body>
     <div class="wrapper">
 
-         @include('poli/template/sidebar')
+         @include('dokter/template/sidebar')
 
         <div class="main-panel">
 
-            @include('poli/template/navbar')
+            @include('dokter/template/navbar')
             
             <div class="content">
                 <div class="container-fluid">
@@ -26,7 +26,7 @@
                                 <div class="header">
                                     <div class="row">
                                         <div class="col-sm-5">
-                                            <h4 class="title space-top text-success">Selamat datang Poli</h4>  
+                                            <h4 class="title space-top text-success">Selamat datang Dokter</h4>  
                                             <br>
                                         </div>
                                     </div>
@@ -41,4 +41,4 @@
         </div>
     </div>
 
-    @include('poli/template/footer')
+    @include('dokter/template/footer')

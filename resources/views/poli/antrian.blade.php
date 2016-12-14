@@ -70,20 +70,31 @@
                                                     <th width="190px;">Aksi</th>
                                                 </thead>
                                                 <tbody>
-
-                                                    @foreach($antrians as $no=>$antrian)
+                                                @if($jmlHasil > 0)
+                                                        @foreach($antrians as $no=>$antrian)
+                                                        <tr>
+                                                            <td>{{ ++$no }}</td>
+                                                            <td>{{ $antrian->pasien->NamaPasien }}</td>
+                                                            <td>{{ $antrian->Keluhan }}</td>
+                                                            <td>
+                                                                <a href="/poli/tambah/{{ $antrian->IdKunjungan }}"><button class="btn btn-primary bold">Periksa</button></a>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                     @else
                                                     <tr>
-                                                        <td>{{ ++$no }}</td>
-                                                        <td>{{ $antrian->pasien->NamaPasien }}</td>
-                                                        <td>{{ $antrian->Keluhan }}</td>
-                                                        <td>
-                                                            <a href="/poli/tambah/{{ $antrian->pasien->IdPasien }}"><button class="btn btn-primary bold">Periksa</button></a>
+                                                        <td colspan="6">
+                                                            <p class="text-center text-danger">
+                                                                <br><i>Data tidak ada</i>
+                                                            </p>
                                                         </td>
                                                     </tr>
-                                                    @endforeach
-
+                                                    @endif
                                                 </tbody>
                                             </table>
+                                            <div class="pull-right">
+                                                {!! $antrians->links() !!}
+                                            </div>
                                         </div>
                                     </div>
                                    

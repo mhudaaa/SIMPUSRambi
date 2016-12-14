@@ -1,12 +1,12 @@
-@include('poli/template/header')
+@include('dokter/template/header')
 <body>
     <div class="wrapper">
 
-         @include('poli/template/sidebar-2')
+         @include('dokter/template/sidebar-2')
 
         <div class="main-panel">
 
-            @include('poli/template/navbar')
+            @include('dokter/template/navbar')
             
             <div class="content">
                 <div class="container-fluid">
@@ -28,7 +28,7 @@
                                         <div class="col-sm-8">
                                             <h4 class="title space-top text-success">Rekap Data Pemeriksaan</h4>  
                                         </div>
-                                        <form method="post" action="/poli/rekap/cari/">
+                                        <form method="post" action="/dokter/rekap/cari/">
                                             {{ csrf_field() }}
                                             <div class="col-sm-3 text-right">
                                                 <div class="form-group">
@@ -74,7 +74,8 @@
                                                                 <td>-</td>
                                                                 @endif
                                                                 <td>
-                                                                    <a href="/poli/rekap/detail/{{ $pemeriksaan->IdKunjungan }}"><button class="btn btn-success">Detail</button></a>
+
+                                                                    <a href="/dokter/rekap/detail/{{ $pemeriksaan->IdKunjungan }}"><button class="btn btn-success">Detail</button></a>
                                                                 </td>
                                                             </tr>
                                                             @endforeach
@@ -87,12 +88,8 @@
                                                             </td>
                                                         </tr>
                                                         @endif
-                                                        
                                                     </tbody>
                                                 </table>
-                                                <div class="pull-right">
-                                                 {!! $pemeriksaans->links() !!}
-                                                </div>
                                             <!-- </div> -->
                                         </div>
                                     </div>
@@ -109,4 +106,4 @@
         </div>
     </div>
 
-    @include('poli/template/footer')
+    @include('dokter/template/footer')

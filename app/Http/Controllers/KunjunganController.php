@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Http\Requests;
 use App\Model\Kunjungan;
 use App\Model\Unit;
@@ -24,19 +25,22 @@ class KunjunganController extends Controller{
     // Menampilkan daftar kunjungan
     public function index(){
         if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
-        $kunjungans = Kunjungan::belumDitangani()->orderBy('created_at', 'desc')->get();
+        $now = date('Y-m-d');
+        $kunjungans = Kunjungan::orderBy('created_at', 'desc')->paginate(10);
         $unit = Unit::all();
         return view('loket/kunjungan', compact('kunjungans','unit'));
     }
 
     // Menampilkan detail data kunjungan pasien
     public function detailKunjungan($IdKunjungan){
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
         $kunjungans = Kunjungan::findOrFail($IdKunjungan);
         return view('loket/detail-kunjungan', compact('kunjungans'));
     }
 
     // Fungsi untuk mencari data kunjungan berdasarkan nama pasien
     public function cariKunjungan(Request $request){
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
         $kunjungans = Kunjungan::whereHas('pasien', function($query) use ($request) {
             $query->where('NamaPasien', 'like', '%'.$request->NamaPasien.'%');
         })->get();
@@ -47,6 +51,7 @@ class KunjunganController extends Controller{
 
     // Menampilkan halaman ubah pasien
     public function formUbahKunjungan($IdKunjungan){
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
         $kunjungans = Kunjungan::findOrFail($IdKunjungan);
         $pasien = Pasien::all();
         $unit = Unit::all();
@@ -54,6 +59,7 @@ class KunjunganController extends Controller{
     }
 
     public function ubahKunjungan(Request $request, $id){
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
         $kunjungan = Kunjungan::find($id);
         $kunjungan->Keluhan = $request->Keluhan;
         $kunjungan->JenisPerawatan = $request->JenisPerawatan;
@@ -64,6 +70,7 @@ class KunjunganController extends Controller{
 
     // Menampilkan form tambah kunjungan
     public function formTambahKunjungan(){
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
         $pasiens = Pasien::all();
         $polis = Unit::poli()->get();
         $kamars = Unit::kamar()->get();
@@ -72,10 +79,18 @@ class KunjunganController extends Controller{
 
     // Fungsi untuk menambahkan kunjungan
     public function tambahKunjungan(Request $request){
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
+
+        $this->validate($request, [
+            'IdPasien' => 'required',
+            'JenisPerawatan' => 'required',
+            'UnitTujuan' => 'required',
+            'Keluhan' => 'required|alpha_dash',
+        ]);
+
         $kunjungan = new Kunjungan();
         $kunjungan->IdPasien = $request->IdPasien;
         $kunjungan->Keluhan = $request->Keluhan;
-        $kunjungan->CaraBayar = $request->CaraBayar;
         $kunjungan->JenisPerawatan = $request->JenisPerawatan;
         $kunjungan->UnitTujuan = $request->UnitTujuan;
         $kunjungan->IdDiagnosa = 0;

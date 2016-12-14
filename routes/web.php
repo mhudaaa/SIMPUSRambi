@@ -46,6 +46,8 @@ Route::get('/loket/kunjungan/tambah-kunjungan', 'KunjunganController@formTambahK
 Route::post('/loket/kunjungan/tambah', 'KunjunganController@tambahKunjungan');
 Route::post('/loket/kunjungan/cari', 'KunjunganController@cariKunjungan');
 
+
+
 // POLI --------------------------------------------------------------------------
 // Pemeriksaan
 Route::get('/poli', 'PoliController@home');
@@ -69,6 +71,13 @@ Route::get('/poli/hapus/obat/{resep}/{obat}', 'PoliController@hapusObat');
 Route::get('/poli/rekap', 'PoliController@rekapPemeriksaan');
 Route::post('/poli/rekap/cari/', 'PoliController@cariRekap');
 Route::get('/poli/rekap/detail/{id}', 'PoliController@detailPemeriksaan');
+
+
+// DOKTER --------------------------------------------------------------------------
+Route::get('/dokter', 'DokterController@home');
+Route::get('/dokter/rekap', 'DokterController@rekapPemeriksaan');
+Route::post('/dokter/rekap/cari/', 'DokterController@cariRekap');
+Route::get('/dokter/rekap/detail/{id}', 'DokterController@detailPemeriksaan');
 
 // PDF
 Route::get('/pdf',array('as'=>'htmltopdfview','uses'=>'PoliController@htmltopdfview'));

@@ -1,4 +1,10 @@
+        @if($poliTujuan == "Umum")
         <div class="sidebar" data-background-color="white" data-active-color="primary">
+        @elseif($poliTujuan == "Kia")
+        <div class="sidebar" data-background-color="white" data-active-color="warning">
+        @elseif($poliTujuan == "Gigi")
+        <div class="sidebar" data-background-color="white" data-active-color="danger">
+        @endif
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a href="#" class="simple-text">

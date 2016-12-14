@@ -24,8 +24,8 @@
                     @if(Session::has('message'))
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="alert alert-success">
-                                <button type="button" aria-hidden="true" class="close">×</button>
+                            <div class="alert alert-success fade in">
+                                <button type="button" aria-hidden="true" data-dismiss="alert" aria-label="close" class="close">×</button>
                                 <span>{{ Session::get('message') }}</span>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                                             <a href="/poli/antrian"><button class="form-control btn-danger btn-fill">Kembali</button></a>
                                         </div>
                                         <div class="col-sm-2">
-                                            <a href="/poli/submit/pemeriksaan/{{ $detailKunjungan->IdKunjungan }}"><button class="form-control btn-success btn-fill btn-selesa" data-title="Selesai ?">Selesai</button></a>
+                                            <a href="/poli/submit/pemeriksaan/{{ $detailKunjungan->IdKunjungan }}"><button class="form-control btn-success btn-fill btn-selesa" data-title="Selesai ?" onclick="return confirm('Selesai menambahkan data?')">Selesai</button></a>
                                         </div>
                                     </div>
 
@@ -71,9 +71,14 @@
                                             <div class="tab-content ">
                                                 <div class="tab-pane active" id="1">
                                                     @if($detailKunjungan->IdDiagnosa == 0)
-                                                    <br>
+                                                    <br><br>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <h6 class="text-primary"><b>Data Anamnesa</b></h6>
+                                                            </div>
+                                                        </div>
+                                                        <br>
                                                     <div id="form-diagnosa">
-                                                        
                                                         <form method="post" class="form-tambah-d" action="{{ url('/poli/tambah/diagnosa') }}"> 
                                                             {{ csrf_field() }}
                                                             <div class="row">
@@ -88,7 +93,8 @@
                                                                     <div class="form-group">
                                                                         <label>Dokter</label>
                                                                         <select class="form-control border-input selectpicker" name="Dokter" data-live-search="true" required="">
-                                                                            <option data-tokens="" value="">- Pilih Dokter -</option>
+                                                                            <option data-tokens="" value="" disabled="" selected="">- Pilih Dokter -</option>
+                                                                            <option data-divider="true"></option>
                                                                             @foreach($dokters as $dokter)
                                                                             <option data-tokens="{{ $dokter->NamaPegawai }}" value="{{ $dokter->IdPegawai }}">{{ $dokter->NamaPegawai }}</option>
                                                                             @endforeach
@@ -116,29 +122,36 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                             <div class="row">
-                                                                <div class="col-md-1">
-                                                                    <div class="form-group">
-                                                                        <label>Tinggi</label>
-                                                                        <input type="number" name="TinggiBadan" class="form-control border-input" placeholder="cm">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-1">
-                                                                    <div class="form-group">
-                                                                        <label>Berat</label>
-                                                                        <input type="number" name="BeratBadan" class="form-control border-input" placeholder="kg">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-1">
-                                                                    <div class="form-group">
-                                                                        <label>Tensi</label>
-                                                                        <input type="number" name="Tensi" class="form-control border-input" placeholder="-">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-1">
-                                                                    <div class="form-group">
-                                                                        <label>Suhu</label>
-                                                                        <input type="number" name="Suhu" class="form-control border-input" placeholder="&#176;C">
+                                                                <div class="col-sm-8">
+                                                                    
+                                                                
+                                                                    <div class="row">
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label>Tinggi Badan</label>
+                                                                                <input type="number" name="TinggiBadan" class="form-control border-input" placeholder="cm">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label>Berat Badan</label>
+                                                                                <input type="number" name="BeratBadan" class="form-control border-input" placeholder="kg">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label>Tensi</label>
+                                                                                <input type="number" name="Tensi" class="form-control border-input" placeholder="-">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label>Suhu</label>
+                                                                                <input type="number" name="Suhu" class="form-control border-input" placeholder="&#176;C">
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -335,8 +348,9 @@
                                                                             <label>Nama Obat</label>
                                                                             <select class="form-control border-input selectpicker" name="IdObat" data-live-search="true">
                                                                                 <option data-tokens="" value="">Pilih nama obat</option>
+                                                                                <option data-divider="true"></option>
                                                                                 @foreach($obats as $obat)
-                                                                                <option data-tokens="{{ strtolower($obat->NamaObat) }}" value="{{ $obat->IdObat }}">{{ $obat->NamaObat }}</option>
+                                                                                <option data-subtext="{{ $obat->JumlahObat }}" data-tokens="{{ strtolower($obat->NamaObat) }}" value="{{ $obat->IdObat }}">{{ $obat->NamaObat }}</option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>

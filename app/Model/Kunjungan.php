@@ -9,7 +9,7 @@ class Kunjungan extends Model{
     protected $primaryKey = 'IdKunjungan';
 
     protected $fillable = [
-		'IdPasien', 'CaraBayar', 'UnitTujuan', 'IdDiagnosa', 'IdRujukan', 'IdResep', 'IdPemeriksaanLab', 'IdRawatInap', 'status'
+		'IdPasien', 'UnitTujuan', 'IdDiagnosa', 'IdRujukan', 'IdResep', 'IdPemeriksaanLab', 'IdRawatInap', 'status'
 	];
 
 	// protected $hidden = [
@@ -45,4 +45,16 @@ class Kunjungan extends Model{
 	public function scopeSudahDitangani($query) {
 		return $query->where('status', 1);
 	}
+
+	// Membedakan berdasarkan poli
+	public function scopePoliUmum($query) {
+		return $query->where('UnitTujuan', 1);
+	}
+	public function scopePoliGigi($query) {
+		return $query->where('UnitTujuan', 2);
+	}
+	public function scopePoliKia($query) {
+		return $query->where('UnitTujuan', 3);
+	}
+
 }

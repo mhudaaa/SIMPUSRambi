@@ -6,23 +6,27 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Model\Pasien;
 use PDF;
+use Auth;
 
 class PasienController extends Controller{
     
     // Menampilkan daftar pasien
     public function index(){
-        $pasiens = Pasien::all();
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
+        $pasiens = Pasien::paginate(10);
         return view('loket/pasien', compact('pasiens'));
     }
 
     // Menampilkan rincian data pasien
     public function detailPasien($IdPasien){
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
         $pasien = Pasien::findOrFail($IdPasien);
         return view('loket/detail-pasien', compact('pasien'));
     }
 
     // Fungsi cari pasien
     public function cariPasien(Request $request){
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
         $pasien = Pasien::where('NamaPasien', 'like', '%'.$request->NamaPasien.'%')->get();
         $jmlHasil = $pasien->count();
         $request->session()->flash('message', 'Menampilkan Data pasien dengan nama = '.$request->NamaPasien.'');
@@ -31,12 +35,14 @@ class PasienController extends Controller{
 
     // Menampilkan form ubah data pasien
     public function formUbahPasien($IdPasien){
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
         $pasien = Pasien::findOrFail($IdPasien);
         return view('loket/ubah-pasien', compact('pasien'));
     }
 
     // Fungsi ubah data pasien
     public function ubahPasien(Request $request, $id){
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
         $pasien = Pasien::find($id);
         $pasien->NamaPasien = $request->nama;
         $pasien->Alamat = $request->alamat;
@@ -54,11 +60,13 @@ class PasienController extends Controller{
 
     // Menampilkan form tambah pasien
     public function formTambahPasien(){
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
         return view('loket/tambah-pasien');
     }
 
     // Fungsi tambah data pasien
     public function tambahPasien(Request $request){
+        if (strpos(Auth::user()->Jabatan, "loket") === false) abort(502);
         $pasien = new Pasien();
         $pasien->NamaPasien = $request->nama;
         $pasien->Alamat = $request->alamat;
@@ -72,17 +80,6 @@ class PasienController extends Controller{
         $pasien->NoBpjs = $request->noBpjs;
         $pasien->save();
         return redirect('/loket/pasien')->with('message', 'Data Pasien berhasil ditambahkan.');
-    }
-
-    public function kartuPasien(Request $request, $IdPasien){
-        $pasien = Pasien::findOrFail($IdPasien);
-        // view()->share('pasien',$pasien);
-        // if($request->has('download')){
-            $pdf = PDF::loadView('loket/kartu-pasien', compact('pasien'));
-            return $pdf->stream();
-            // return $pdf->download('kartu-pasien.pdf');
-        // }
-        // return view('loket/kartu-pasien', compact('pasien'));
     }
 
     public function htmltopdfview(Request $request){

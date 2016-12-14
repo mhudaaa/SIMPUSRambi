@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/logout';
 
     /**
      * Create a new controller instance.
@@ -51,8 +51,10 @@ class LoginController extends Controller
 
          if (Auth::attempt($credential)) {
             // dd(Auth::check());
-            if (Auth::user()->Jabatan == "poliumum") {
+            if (Auth::user()->Jabatan == "poliumum" || Auth::user()->Jabatan == "poligigi" || Auth::user()->Jabatan == "polikia") {
                 return redirect('/poli');
+            }elseif (Auth::user()->Jabatan == "dokterumum" || Auth::user()->Jabatan == "doktergigi" || Auth::user()->Jabatan == "dokterkia") {
+                return redirect('/dokter');
             }elseif (Auth::user()->Jabatan == "loket") {
                 return redirect('/loket');
             }
@@ -60,7 +62,7 @@ class LoginController extends Controller
             return back()
                 ->withInput($request->only('username'))
                 ->withErrors([
-                    'username' => 'username atau password salah',
+                    'username' => 'Username atau Password salah',
                 ]);
         }
     }

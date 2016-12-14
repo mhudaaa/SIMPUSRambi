@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Be right back.</title>
+        <title>Akses Ilegal</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -33,14 +33,18 @@
 
             .title {
                 font-size: 72px;
-                margin-bottom: 40px;
+                margin-bottom: 10px;
+            }
+            a{
+                text-decoration: none;
             }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Not Authorize.</div>
+                <div class="title">Akses Ilegal</div>
+                <a href="/logout"><small>LOGIN</small></a>
             </div>
         </div>
     </body>

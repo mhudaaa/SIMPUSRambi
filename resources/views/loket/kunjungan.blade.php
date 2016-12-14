@@ -9,36 +9,7 @@
 
     <div class="main-panel">
 
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar bar1"></span>
-                        <span class="icon-bar bar2"></span>
-                        <span class="icon-bar bar3"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Loket - Kunjungan</a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="ti-settings"></i>
-                                <p>Pengaturan akun</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="ti-power-off"></i>
-                                <p>Keluar</p>
-                            </a>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
-        </nav>
+        @include('loket/template/navbar')
         
         <div class="content">
             <div class="container-fluid">
@@ -75,7 +46,7 @@
                                 <div class="row">
                                     <div class="col-sm-8">
                                         <h4 class="title">Data Kunjungan</h4>  
-                                        <p class="category">{{ date("l, d M Y") }}</p>
+                                        <!-- <p class="category">{{ date("l, d M Y") }}</p> -->
                                     </div>
                                     <form method="post" action="/loket/kunjungan/cari/">
                                         {{ csrf_field() }}
@@ -121,6 +92,9 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                        <div class="pull-right">
+                                            {!! $kunjungans->links() !!}
+                                        </div>
                                     </div>
                                 </div>
                                

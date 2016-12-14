@@ -25,6 +25,7 @@ h1 {
   -webkit-border-radius: 4px;
   border-radius: 4px;
   margin: auto;
+  display: block;
   position: absolute;
   left: 0;
   right: 0;
@@ -103,10 +104,18 @@ h1 {
 }
 
 .alert {
-  display: none;
+  /*display: none;*/
   font-size: 12px;
-  color: #f00;
+  color: rgba(231, 76, 60, .7);
   float: left;
+  text-align: center!important;
+  background: rgba(231, 76, 60, .1);
+  border: 1px solid rgba(231, 76, 60, .7);
+  padding: 10px;
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  border-radius: 3px;
 }
 
 @-moz-keyframes wrong-log {

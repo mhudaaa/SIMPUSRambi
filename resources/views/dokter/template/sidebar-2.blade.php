@@ -1,9 +1,9 @@
         @if($poliTujuan == "Umum")
-        <div class="sidebar" data-background-color="white" data-active-color="primary">
+        <div class="sidebar" data-background-color="black" data-active-color="primary">
         @elseif($poliTujuan == "Kia")
-        <div class="sidebar" data-background-color="white" data-active-color="warning">
+        <div class="sidebar" data-background-color="black" data-active-color="warning">
         @elseif($poliTujuan == "Gigi")
-        <div class="sidebar" data-background-color="white" data-active-color="danger">
+        <div class="sidebar" data-background-color="black" data-active-color="danger">
         @endif
             <div class="sidebar-wrapper">
                 <div class="logo">
@@ -14,19 +14,13 @@
 
                 <ul class="nav">
                     <li>
-                        <a href="/poli">
+                        <a href="/dokter">
                             <i class="ti-home"></i>
                             <p>Beranda</p>
                         </a>
                     </li>
                     <li class="active">
-                        <a href="/poli/antrian">
-                            <i class="ti-ticket"></i>
-                            <p>Antrian</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/poli/rekap">
+                        <a href="/dokter/rekap">
                             <i class="ti-clipboard"></i>
                             <p>Rekap Pemeriksaan</p>
                         </a>

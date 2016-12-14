@@ -8,11 +8,11 @@
                             <span class="icon-bar bar3"></span>
                         </button>
                         @if($poliTujuan == "Umum")
-                        <a class="navbar-brand" href="#">Poli - <span class="text-primary">Umum</span></a>
+                        <a class="navbar-brand" href="#">Dokter - <span class="text-primary">Umum</span></a>
                         @elseif($poliTujuan == "Kia")
-                        <a class="navbar-brand" href="#">Poli - <span class="text-warning">KIA</span></a>
+                        <a class="navbar-brand" href="#">Dokter - <span class="text-warning">KIA</span></a>
                         @elseif($poliTujuan == "Gigi")
-                        <a class="navbar-brand" href="#">Poli - <span class="text-danger">Gigi</span></a>
+                        <a class="navbar-brand" href="#">Dokter - <span class="text-danger">Gigi</span></a>
                         @endif
                     </div>
                     <div class="collapse navbar-collapse">
