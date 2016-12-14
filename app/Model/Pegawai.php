@@ -18,4 +18,8 @@ class Pegawai extends Authenticatable{
 	public function scopeDokter($query) {
 		return $query->where('Jabatan', 'Dokter');
 	}
+
+	public function scopePetugasLab($query) {
+		return $query->where('Jabatan', 'petugaslab');
+	}
 }

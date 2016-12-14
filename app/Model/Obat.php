@@ -7,4 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Obat extends Model{
     protected $table = 'tb_obat';
     protected $primaryKey = 'IdObat';
+
+    protected $fillable = [
+		'NamaObat', 'JenisObat', 'JumlahObat', 'HargaObat'
+	];
 }

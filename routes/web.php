@@ -79,6 +79,27 @@ Route::get('/dokter/rekap', 'DokterController@rekapPemeriksaan');
 Route::post('/dokter/rekap/cari/', 'DokterController@cariRekap');
 Route::get('/dokter/rekap/detail/{id}', 'DokterController@detailPemeriksaan');
 
-// PDF
-Route::get('/pdf',array('as'=>'htmltopdfview','uses'=>'PoliController@htmltopdfview'));
+
+// DOKTER --------------------------------------------------------------------------
+Route::get('/apoteker', 'ApotekerController@home');
+Route::get('/apoteker/obat', 'ApotekerController@obat');
+
+Route::get('/apoteker/tambah-obat', function () {
+    return view('apoteker/tambah-obat');
+});
+Route::post('/apoteker/tambah/obat', 'ApotekerController@tambahObat');
+
+Route::get('/apoteker/ubah-obat/{id}', 'ApotekerController@detailObat');
+Route::post('/apoteker/ubah/obat/{id}', 'ApotekerController@ubahDataObat');
+
+Route::get('/apoteker/resep', 'ApotekerController@resep');
+Route::get('/apoteker/detail/resep/{id}', 'ApotekerController@detailResep');
+
+// DOKTER --------------------------------------------------------------------------
+Route::get('/lab', 'LaboraturiumController@home');
+Route::get('/lab/laboraturium', 'LaboraturiumController@lab');
+Route::get('/lab/tambah-lab', 'LaboraturiumController@formTambahLab');
+Route::post('/lab/laboraturium', 'LaboraturiumController@tambahLab');
+Route::get('/lab/detail/lab/{id}', 'LaboraturiumController@detailLab');
+
 
