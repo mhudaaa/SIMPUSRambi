@@ -9,7 +9,7 @@
 			<div class="card card-soft">
 	        	<div class="content">
 	        		<div class="content-header alert alert-info text-center">
-						<h4 class="text-info">Puskesmas Rambipuji</h4>
+						<h4 class="text-info">Rujukan Puskesmas Rambipuji</h4>
 						<small>JL. Gajahmada, No. 191, Rambipuji, Kaliwates, Jember, Jawa Timur 68131</small>
 						<!-- <hr> -->
 	        		</div>
@@ -17,19 +17,24 @@
 	        			<div class="col-sm-12">
 	        				<table class="table">
 	        					<tr>
-	        						<td width="100px"><b>No. Pasien</b></td>
+	        						<td width="140px"><b>Nama</b></td>
 	        						<td width="10px">:</td>
-	        						<td>132910</td>
+	        						<td>{{ $rujukan->pasien->NamaPasien }}</td>
 	        					</tr>
 	        					<tr>
-	        						<td><b>Nama</b></td>
-	        						<td>:</td>
-	        						<td></td>
+	        						<td width="140px"><b>Tujuan</b></td>
+	        						<td width="10px">:</td>
+	        						<td>{{ $rujukan->rujukan->Tujuan }}</td>
 	        					</tr>
 	        					<tr>
-	        						<td><b>Alamat</b></td>
+	        						<td><b>Tanggal Rujukan</b></td>
 	        						<td>:</td>
-	        						<td></td>
+	        						<td>{{ $rujukan->rujukan->TanggalRujukan }}</td>
+	        					</tr>
+	        					<tr>
+	        						<td><b>Catatan</b></td>
+	        						<td>:</td>
+	        						<td>{{ $rujukan->rujukan->Catatan }}</td>
 	        					</tr>
 	        				</table>
 	        			</div>

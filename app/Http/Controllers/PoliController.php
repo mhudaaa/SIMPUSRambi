@@ -210,8 +210,8 @@ class PoliController extends Controller{
         return view('poli/cari-rekap', compact('pemeriksaans', 'jmlHasil', 'poliTujuan'));
     }  
 
-    public function cetakRujukan($IdRujukan){
-        $rujukan = Rujukan::findOrFail($IdRujukan);
+    public function cetakRujukan($IdKunjungan){
+        $rujukan = Kunjungan::findOrFail($IdKunjungan);
         return view('poli/rujukan', compact('rujukan'));
     }
 

@@ -137,7 +137,7 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td colspan="2">
-                                                                        <br><a href=""><button class="btn btn-info btn-fill">Cetak rujukan</button></a>
+                                                                        <br><a target="_blank" href="/poli/rujukan/{{ $detailPemeriksaan->IdKunjungan }}"><button class="btn btn-info btn-fill">Cetak rujukan</button></a>
                                                                     </td>
                                                                 </tr>
                                                             </table>
